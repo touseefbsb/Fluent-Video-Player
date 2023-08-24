@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "Fluent Video Player (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "Fluent Video Player (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

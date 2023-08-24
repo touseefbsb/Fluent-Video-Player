@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl
+    x:Class="Fluent_Video_Player.DataTemplates.HistoryTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid
+        Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"
+        Style="{StaticResource TopGrid}"
+        ToolTipService.ToolTip="{x:Bind MyVideo.MyVideoFile.Path, Mode=OneWay}">
+        <Grid x:Name="GridVieww" Style="{StaticResource GridViewContainer}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="32" />
+            </Grid.RowDefinitions>
+            <Image Source="{x:Bind MyVideo.Thumbnail, Mode=OneWay}" Style="{StaticResource ThumbnailImageStyle}" />
+            <Border Style="{StaticResource DurationBorder}">
+                <TextBlock Text="{x:Bind MyVideo.Duration, Mode=OneWay}" />
+            </Border>
+            <Border Grid.Row="1">
+                <TextBlock Style="{StaticResource GridTitleTextBlock}" Text="{x:Bind MyVideo.Title, Mode=OneWay}" />
+            </Border>
+            <Button
+                Grid.Row="2"
+                Command="{x:Bind HistoryDeleteCommand}"
+                IsEnabled="{x:Bind MyVideo.DeleteButtonEnabled, Mode=OneWay}"
+                Style="{StaticResource HistoryDeleteButton}">
+                <SymbolIcon
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Symbol="Clear" />
+            </Button>
+        </Grid>
+        <Grid
+            x:Name="ListVieww"
+            Margin="4"
+            Style="{StaticResource GridViewContainer}"
+            Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="44" />
+            </Grid.ColumnDefinitions>
+            <Image Source="{x:Bind MyVideo.Thumbnail, Mode=OneWay}" Style="{StaticResource ThumbnailImageStyle}" />
+            <Border Grid.Column="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="7*" />
+                        <RowDefinition Height="4*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Padding="8,8,8,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        FontSize="16"
+                        Style="{StaticResource GridTitleTextBlock}"
+                        Text="{x:Bind MyVideo.Title, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Padding="8,0,0,8"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MyVideo.Duration, Mode=OneWay}" />
+                </Grid>
+            </Border>
+            <Button
+                Grid.Column="2"
+                Command="{x:Bind HistoryDeleteCommand}"
+                IsEnabled="{x:Bind MyVideo.DeleteButtonEnabled, Mode=OneWay}"
+                Style="{StaticResource HistoryDeleteButton}">
+                <SymbolIcon
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Symbol="Clear" />
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
