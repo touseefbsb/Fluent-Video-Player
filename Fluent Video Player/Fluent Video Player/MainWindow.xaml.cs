@@ -1,4 +1,4 @@
-﻿using Fluent_Video_Player.Extensions;
+﻿using CommunityToolkit.WinUI;
 using Fluent_Video_Player.Helpers;
 
 using Windows.UI.ViewManagement;
@@ -27,12 +27,7 @@ public sealed partial class MainWindow : WindowEx
 
     // this handles updating the caption button colors correctly when indows system theme is changed
     // while the app is open
-    private void Settings_ColorValuesChanged(UISettings sender, object args)
-    {
+    private void Settings_ColorValuesChanged(UISettings sender, object args) =>
         // This calls comes off-thread, hence we will need to dispatch it to current app's thread
-        dispatcherQueue.TryEnqueue(() =>
-        {
-            TitleBarHelper.ApplySystemThemeToCaptionButtons();
-        });
-    }
+        _ = dispatcherQueue.TryEnqueue(() => TitleBarHelper.ApplySystemThemeToCaptionButtons());
 }

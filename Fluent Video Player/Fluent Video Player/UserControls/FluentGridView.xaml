@@ -12,7 +12,7 @@
     mc:Ignorable="d">
     <toolkitControls:AdaptiveGridView
         x:Name="MyAdaptiveView"
-        animations:ReorderGridAnimation.Duration="250"
+        animations:ItemsReorderAnimation.Duration="250"
         DesiredWidth="{x:Bind MyDesiredWidth, Mode=OneWay}"
         IsItemClickEnabled="True"
         ItemHeight="{x:Bind MyItemHeight, Mode=OneWay}"

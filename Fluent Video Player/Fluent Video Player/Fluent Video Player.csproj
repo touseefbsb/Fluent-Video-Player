@@ -35,7 +35,6 @@
     <PackageReference Include="CommunityToolkit.WinUI.UI.Behaviors" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Core" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Primitives" Version="7.1.2" />
-    <PackageReference Include="FFmpegInteropX" Version="1.1.0-pre42" />
     <PackageReference Include="FFmpegInteropX.FFmpegUWP" Version="5.1.100" />
     <PackageReference Include="Meziantou.Analyzer" Version="2.0.82">
       <PrivateAssets>all</PrivateAssets>

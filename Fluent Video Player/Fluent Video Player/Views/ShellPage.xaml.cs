@@ -1,5 +1,5 @@
-﻿using Fluent_Video_Player.Contracts.Services;
-using Fluent_Video_Player.Extensions;
+﻿using CommunityToolkit.WinUI;
+using Fluent_Video_Player.Contracts.Services;
 using Fluent_Video_Player.Helpers;
 using Fluent_Video_Player.ViewModels;
 
@@ -12,13 +12,9 @@ using Windows.System;
 
 namespace Fluent_Video_Player.Views;
 
-// TODO: Update NavigationViewItem titles and icons in ShellPage.xaml.
 public sealed partial class ShellPage : Page
 {
-    public ShellViewModel ViewModel
-    {
-        get;
-    }
+    public ShellViewModel ViewModel { get; }
 
     public ShellPage(ShellViewModel viewModel)
     {
@@ -28,7 +24,6 @@ public sealed partial class ShellPage : Page
         ViewModel.NavigationService.Frame = NavigationFrame;
         ViewModel.NavigationViewService.Initialize(NavigationViewControl);
 
-        // TODO: Set the title bar icon by updating /Assets/WindowIcon.ico.
         // A custom title bar is required for full window theme and Mica support.
         // https://docs.microsoft.com/windows/apps/develop/title-bar?tabs=winui3#full-customization
         App.MainWindow.ExtendsContentIntoTitleBar = true;
@@ -53,16 +48,13 @@ public sealed partial class ShellPage : Page
         App.AppTitlebar = AppTitleBarText as UIElement;
     }
 
-    private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
+    private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args) => AppTitleBar.Margin = new Thickness()
     {
-        AppTitleBar.Margin = new Thickness()
-        {
-            Left = sender.CompactPaneLength * (sender.DisplayMode == NavigationViewDisplayMode.Minimal ? 2 : 1),
-            Top = AppTitleBar.Margin.Top,
-            Right = AppTitleBar.Margin.Right,
-            Bottom = AppTitleBar.Margin.Bottom
-        };
-    }
+        Left = sender.CompactPaneLength * (sender.DisplayMode == NavigationViewDisplayMode.Minimal ? 2 : 1),
+        Top = AppTitleBar.Margin.Top,
+        Right = AppTitleBar.Margin.Right,
+        Bottom = AppTitleBar.Margin.Bottom,
+    };
 
     private static KeyboardAccelerator BuildKeyboardAccelerator(VirtualKey key, VirtualKeyModifiers? modifiers = null)
     {
@@ -82,8 +74,6 @@ public sealed partial class ShellPage : Page
     {
         var navigationService = App.GetService<INavigationService>();
 
-        var result = navigationService.GoBack();
-
-        args.Handled = result;
+        args.Handled = navigationService.GoBack();
     }
 }
