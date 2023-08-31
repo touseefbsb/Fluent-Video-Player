@@ -1,4 +1,5 @@
-﻿using Fluent_Video_Player.Activation;
+﻿using Database;
+using Fluent_Video_Player.Activation;
 using Fluent_Video_Player.Contracts.Services;
 using Fluent_Video_Player.Core.Contracts.Services;
 using Fluent_Video_Player.Core.Services;
@@ -81,6 +82,7 @@ public partial class App : Application
             //Services I made
             services.AddSingleton<IStorageFileService, StorageFileService>();
             services.AddSingleton<IStoreService, StoreService>();
+            services.AddSingleton<IDbService, DbService>();
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));

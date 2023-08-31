@@ -9,27 +9,26 @@ namespace Fluent_Video_Player.ViewModels;
 
 public partial class ShellViewModel : ObservableRecipient
 {
+    #region Services
+    public INavigationService NavigationService { get; }
+    public INavigationViewService NavigationViewService { get; }
+    #endregion Services
+
+    #region ObservableFields
     [ObservableProperty] private bool isBackEnabled;
-
     [ObservableProperty] private object? selected;
+    #endregion ObservableFields
 
-    public INavigationService NavigationService
-    {
-        get;
-    }
-
-    public INavigationViewService NavigationViewService
-    {
-        get;
-    }
-
+    #region Ctor
     public ShellViewModel(INavigationService navigationService, INavigationViewService navigationViewService)
     {
         NavigationService = navigationService;
         NavigationService.Navigated += OnNavigated;
         NavigationViewService = navigationViewService;
     }
+    #endregion Ctor
 
+    #region Methods
     private void OnNavigated(object sender, NavigationEventArgs e)
     {
         IsBackEnabled = NavigationService.CanGoBack;
@@ -46,4 +45,5 @@ public partial class ShellViewModel : ObservableRecipient
             Selected = selectedItem;
         }
     }
+    #endregion Methods
 }

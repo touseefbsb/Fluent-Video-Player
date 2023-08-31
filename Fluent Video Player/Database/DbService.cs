@@ -2,16 +2,16 @@
 
 namespace Database;
 
-public static class DbHelper
+public class DbService : IDbService
 {
-    public static TimeSpan LastRetrievedPosition = TimeSpan.Zero;
-    public static void Initialize()
+    public TimeSpan LastRetrievedPosition = TimeSpan.Zero;
+    public void Initialize()
     {
         using var MyDb = new DatabaseContext();
         MyDb.Database.Migrate();
     }
 
-    public static async Task<int> GetMyViews(string folderRelativeId)
+    public async Task<int> GetMyViewsAsync(string folderRelativeId)
     {
         using var MyDb = new DatabaseContext();
         if (MyDb is not null)
@@ -22,7 +22,7 @@ public static class DbHelper
         return 0;
     }
 
-    public static async Task UpdateViews(string folderRelativeId)
+    public async Task UpdateViewsAsync(string folderRelativeId)
     {
         using var MyDb = new DatabaseContext();
         if (MyDb is not null)
@@ -47,7 +47,7 @@ public static class DbHelper
         }
     }
 
-    public static async Task<TimeSpan> GetPosition(string folderRelativeId)
+    public async Task<TimeSpan> GetPositionAsync(string folderRelativeId)
     {
         using var MyDb = new DatabaseContext();
         if (!MyDb.FileDatas.Any())
@@ -67,17 +67,17 @@ public static class DbHelper
         LastRetrievedPosition = TimeSpan.FromTicks(Convert.ToInt64(PositionItem.Position));
         return LastRetrievedPosition;
     }
-    public static async Task<List<string>> GetPlaylists()
+    public async Task<List<string>> GetPlaylistsAsync()
     {
         using var MyDb = new DatabaseContext();
         return await MyDb.PlaylistDatas.Select(a => a.Playlist).ToListAsync();
     }
-    public static async Task<bool> IsPlaylistNameNew(string name)
+    public async Task<bool> IsPlaylistNameNewAsync(string name)
     {
         using var MyDb = new DatabaseContext();
         return !(await MyDb.PlaylistDatas.Select(a => a.Playlist).ToListAsync()).Contains(name);
     }
-    public static async Task RemovePlaylist(string playlistName)
+    public async Task RemovePlaylistAsync(string playlistName)
     {
         using var MyDb = new DatabaseContext();
         var playlistToRemove = await MyDb.PlaylistDatas.FirstOrDefaultAsync(a => a.Playlist == playlistName);
@@ -91,31 +91,25 @@ public static class DbHelper
 
         _ = await MyDb.SaveChangesAsync();
     }
-    public static async Task<List<string>> GetVideosForPlaylist(string playlistName)
+    public async Task<List<string>> GetVideosForPlaylistAsync(string playlistName)
     {
         using var MyDb = new DatabaseContext();
         return await MyDb.PlaylistFileDatas.Where(a => a.Playlist == playlistName).Select(a => a.Path).ToListAsync();
     }
-    public static async Task<List<string>> GetPlaylistsForVideo(string path)
+    public async Task<List<string>> GetPlaylistsForVideoAsync(string path)
     {
         using var MyDb = new DatabaseContext();
         return await MyDb.PlaylistFileDatas.Where(a => a.Path == path).Select(a => a.Playlist).ToListAsync();
     }
 
-    public static async Task CreateNewPlaylist(string playlistName, string path)
+    public async Task CreateNewPlaylistAsync(string playlistName, string path)
     {
         using var MyDb = new DatabaseContext();
-        //if (MyDb.PlaylistDatas.FirstOrDefaultAsync(a => a.Playlist == playlistName) is null)
-        //{//check for already existing if the button is activated without checking
         _ = MyDb.PlaylistDatas.Add(new PlaylistData { Playlist = playlistName });
         _ = MyDb.PlaylistFileDatas.Add(new PlaylistFileData { Playlist = playlistName, Path = path });
         _ = await MyDb.SaveChangesAsync();
-        //    return true;
-        //}
-        //else
-        //    return false;
     }
-    public static async Task AddToPlaylist(string playlistName, string path)
+    public async Task AddToPlaylistAsync(string playlistName, string path)
     {
         using var MyDb = new DatabaseContext();
         var item = await MyDb.PlaylistFileDatas.FirstOrDefaultAsync(a => a.Playlist == playlistName && a.Path == path);
@@ -125,7 +119,7 @@ public static class DbHelper
             _ = await MyDb.SaveChangesAsync();
         }
     }
-    public static async Task RemoveFromPlaylist(string playlistName, string path)
+    public async Task RemoveFromPlaylistAsync(string playlistName, string path)
     {
         using var MyDb = new DatabaseContext();
         var itemToRemove = await MyDb.PlaylistFileDatas.FirstOrDefaultAsync(a => a.Playlist == playlistName && a.Path == path);
@@ -136,7 +130,7 @@ public static class DbHelper
         }
     }
 
-    public static async Task RemoveFromAllPlaylists(string path)
+    public async Task RemoveFromAllPlaylistsAsync(string path)
     {
         using var MyDb = new DatabaseContext();
         var itemsToRemove = MyDb.PlaylistFileDatas.Where(a => a.Path == path);
@@ -147,11 +141,11 @@ public static class DbHelper
         }
     }
 
-    public static async Task SaveOrUpdatePosition(string folderRelativeId, TimeSpan timePosition)
+    public async Task SaveOrUpdatePositionAsync(string folderRelativeId, TimeSpan timePosition)
     {
         float position = timePosition.Ticks;
         using var MyDb = new DatabaseContext();
-        if (MyDb.FileDatas.Count() == 0)
+        if (!MyDb.FileDatas.Any())
         {
             _ = await MyDb.FileDatas.AddAsync(new FileData { Path = folderRelativeId, Position = position });
             _ = await MyDb.SaveChangesAsync();

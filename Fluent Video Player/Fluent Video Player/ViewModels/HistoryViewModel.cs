@@ -6,6 +6,7 @@ using CommunityToolkit.WinUI.UI;
 using CommunityToolkit.WinUI.UI.Controls;
 using Fluent_Video_Player.Contracts.Services;
 using Fluent_Video_Player.Enums;
+using Fluent_Video_Player.EventArgs;
 using Fluent_Video_Player.Helpers;
 using Fluent_Video_Player.Models;
 using Microsoft.AppCenter.Analytics;
@@ -42,8 +43,36 @@ public partial class HistoryViewModel : ObservableRecipient
     }
     #endregion Ctor
 
-    #region Methods
+    #region Commands
     [RelayCommand] private async Task LoadedAsync() => await FillHistoryAsync();
+
+    [RelayCommand]
+    private async Task ClearHistoryAsync()
+    {
+        var dialog = new ContentDialog
+        {
+            Title = "ConfirmationTitle".GetLocalized(),
+            IsPrimaryButtonEnabled = true,
+            IsSecondaryButtonEnabled = true,
+            PrimaryButtonText = "ContentDialogPrimaryText".GetLocalized(),
+            SecondaryButtonText = "ContentDialogSecondaryText".GetLocalized(),
+            Content = "ConfirmClearHistoryText".GetLocalized(),
+        };
+        var result = await dialog.ShowAsync();
+        switch (result)
+        {
+            case ContentDialogResult.Primary:
+                StorageApplicationPermissions.FutureAccessList.Clear();
+                SourcePrivate.Clear();
+                break;
+            case ContentDialogResult.Secondary:
+            case ContentDialogResult.None:
+                break;
+        }
+    }
+    #endregion Commands
+
+    #region Methods
     public async Task FillHistoryAsync()
     {
         HistoryLoading = true;
@@ -52,7 +81,7 @@ public partial class HistoryViewModel : ObservableRecipient
             SourcePrivate.Clear();
         }
         var ToRemoveTokens = new List<string>();
-        foreach (var token in StorageApplicationPermissions.FutureAccessList.Entries.Select(x=>x.Token))
+        foreach (var token in StorageApplicationPermissions.FutureAccessList.Entries.Select(x => x.Token))
         {
             try
             {
@@ -96,29 +125,20 @@ public partial class HistoryViewModel : ObservableRecipient
         }
         Analytics.TrackEvent(nameof(FillHistoryAsync));
     }
-    [RelayCommand]
-    private async Task ClearHistoryAsync()
+
+    internal void ApplyFilter(string searchBoxText)
     {
-        var dialog = new ContentDialog
-        {
-            Title = "ConfirmationTitle".GetLocalized(),
-            IsPrimaryButtonEnabled = true,
-            IsSecondaryButtonEnabled = true,
-            PrimaryButtonText = "ContentDialogPrimaryText".GetLocalized(),
-            SecondaryButtonText = "ContentDialogSecondaryText".GetLocalized(),
-            Content = "ConfirmClearHistoryText".GetLocalized(),
-        };
-        var result = await dialog.ShowAsync();
-        switch (result)
-        {
-            case ContentDialogResult.Primary:
-                StorageApplicationPermissions.FutureAccessList.Clear();
-                SourcePrivate.Clear();
-                break;
-            case ContentDialogResult.Secondary:
-            case ContentDialogResult.None:
-                break;
-        }
+        Source.Filter = x => true;
+        Source.Filter = string.IsNullOrWhiteSpace(searchBoxText)
+            ? (_ => true)
+            : (x =>
+            ((Video)x).Title.Contains(searchBoxText, StringComparison.OrdinalIgnoreCase));
+    }
+
+    internal void HistoryItemDeleted(HistoryItemDeletedEventArgs e)
+    {
+        StorageApplicationPermissions.FutureAccessList.Remove(e.MyVideo.HistoryToken);
+        SourcePrivate.Remove(e.MyVideo);
     }
     #endregion Methods
 }

@@ -137,14 +137,14 @@ namespace Fluent_Video_Player.UserControls
         }
         private void TurnToGridView()
         {
-            ToggleViewButton.Icon = new SymbolIcon { Symbol = Symbol.AllApps };
+            ToggleViewButton.Icon = new FontIcon { Glyph = "\uE71D" };
             MyDesiredWidth = (double)Application.Current.Resources["GridDesiredWidth"];
             MyItemHeight = (double)Application.Current.Resources["GridItemHeight"];
             ApplicationData.Current.LocalSettings.SaveString(SettingsStorageExtensions.CollectionViewKey, nameof(CurrentCollectionView.GridView));
         }
         private void TurnToListView()
         {
-            ToggleViewButton.Icon = new SymbolIcon { Symbol = Symbol.GridView };
+            ToggleViewButton.Icon = new FontIcon { Glyph = "\uF0E2" };
             MyDesiredWidth = (double)Application.Current.Resources["ListDesiredWidth"];
             MyItemHeight = (double)Application.Current.Resources["ListItemHeight"];
             ApplicationData.Current.LocalSettings.SaveString(SettingsStorageExtensions.CollectionViewKey, nameof(CurrentCollectionView.ListView));

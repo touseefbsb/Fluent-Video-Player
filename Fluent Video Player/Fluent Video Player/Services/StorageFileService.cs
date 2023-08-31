@@ -12,13 +12,13 @@ namespace Fluent_Video_Player.Services
     {
         #region Fields 
         readonly string videoFilter = "System.Kind:=System.Kind#Video ext:<>.srt";
-        internal readonly List<string> VideoFileTypes = new()
-                                                       { ".webm", ".flv", ".mkv", ".vob", ".ogv", ".ogg",
-                                                         ".drc", ".gif", ".gifv", ".mng", ".avi",".mov",
-                                                         ".qt",".wmv",".yuv",".rm",".rmvb",".asf",".amv",
-                                                         ".mp4",".m4p",".m4v",".mpg",".mp2",".mpeg",".mpe",
-                                                         ".mpv",".m2v",".svi",".3gp",".3g2",".mxf",
-                                                         ".roq",".nsv",".f4v",".f4p",".f4a",".f4b",".divx"};
+        public List<string> VideoFileTypes => new()
+                                           { ".webm", ".flv", ".mkv", ".vob", ".ogv", ".ogg",
+                                             ".drc", ".gif", ".gifv", ".mng", ".avi",".mov",
+                                             ".qt",".wmv",".yuv",".rm",".rmvb",".asf",".amv",
+                                             ".mp4",".m4p",".m4v",".mpg",".mp2",".mpeg",".mpe",
+                                             ".mpv",".m2v",".svi",".3gp",".3g2",".mxf",
+                                             ".roq",".nsv",".f4v",".f4p",".f4a",".f4b",".divx"};
 
         internal readonly string[] RequiredVideoProperties = new string[] { "System.Media.Duration" };
         private QueryOptions videoFileOptions;

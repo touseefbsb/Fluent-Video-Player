@@ -6,6 +6,7 @@ namespace Fluent_Video_Player.Contracts.Services
 {
     public interface IStorageFileService
     {
+        List<string> VideoFileTypes { get; }
         void AddToHistory(StorageFile fileToBeAdded);
         Task<BitmapImage?> GetDisplayForFileAsync(StorageFile MyVideoFile);
         Task<string> GetDurationAsync(StorageFile file);
