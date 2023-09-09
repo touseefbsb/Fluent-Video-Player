@@ -1,14 +1,12 @@
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using CommunityToolkit.Mvvm.Input;
-using Fluent_Video_Player.Core.Enums;
-using Fluent_Video_Player.EventArgs;
-using Fluent_Video_Player.Extensions;
+﻿using Fluent_Video_Player.Helpers;
 using Fluent_Video_Player.Models;
+using System;
+using System.Windows.Input;
 using Windows.Storage;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Fluent_Video_Player.DataTemplates
 {
@@ -24,22 +22,23 @@ namespace Fluent_Video_Player.DataTemplates
 
         public static readonly DependencyProperty MyVideoProperty =
             DependencyProperty.Register("MyVideo", typeof(Video), typeof(HistoryTemplate), new PropertyMetadata(null));
-
+        
         public bool IsPlaylist
         {
-            get => (bool)GetValue(IsPlaylistProperty);
-            set => SetValue(IsPlaylistProperty, value);
+            get { return (bool)GetValue(IsPlaylistProperty); }
+            set { SetValue(IsPlaylistProperty, value); }
         }
-
+        
         public static readonly DependencyProperty IsPlaylistProperty =
             DependencyProperty.Register("IsPlaylist", typeof(bool), typeof(HistoryTemplate), new PropertyMetadata(null));
+
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             CheckView();
             SettingsStorageExtensions.OnCollectionViewSelected += SettingsStorageExtensions_OnCollectionViewSelected;
         }
-        private void SettingsStorageExtensions_OnCollectionViewSelected(object? sender, System.EventArgs e) => CheckView();
+        private void SettingsStorageExtensions_OnCollectionViewSelected(object sender, System.EventArgs e) => CheckView();
         private void UserControl_Unloaded(object sender, RoutedEventArgs e) => SettingsStorageExtensions.OnCollectionViewSelected -= SettingsStorageExtensions_OnCollectionViewSelected;
         private void CheckView()
         {
@@ -63,8 +62,11 @@ namespace Fluent_Video_Player.DataTemplates
             GridVieww.Visibility = Visibility.Collapsed;
             ListVieww.Visibility = Visibility.Visible;
         }
-        [RelayCommand]
-        private void HistoryDelete()
+
+        private ICommand _historyDeleteCommand;
+        public ICommand HistoryDeleteCommand => _historyDeleteCommand ?? (_historyDeleteCommand = new RelayCommand(OnHistoryDelete));
+
+        private void OnHistoryDelete()
         {
             if (IsPlaylist)
             {
@@ -72,10 +74,19 @@ namespace Fluent_Video_Player.DataTemplates
             }
             else
             {
-                HistoryItemDeleted?.Invoke(this, new HistoryItemDeletedEventArgs { MyVideo = MyVideo });
+                HistoryItemDeleted?.Invoke(this, new HistoryItemDeletedEventArgs { MyVideo = MyVideo });                
             }
         }
         public event EventHandler<VideoRemovedFromPlaylistEventArgs> VideoRemovedFromPlaylist;
         public event EventHandler<HistoryItemDeletedEventArgs> HistoryItemDeleted;
+    }
+
+    public class VideoRemovedFromPlaylistEventArgs
+    {
+        public Video MyVideo { get; set; }
+    }
+    public class HistoryItemDeletedEventArgs
+    {
+        public Video MyVideo { get; set; }
     }
 }

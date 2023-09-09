@@ -1,0 +1,101 @@
+﻿<UserControl
+    x:Class="Fluent_Video_Player.DataTemplates.PlaylistTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkitConverter="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <toolkitConverter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter1" />
+    </UserControl.Resources>
+    <Grid
+        Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"
+        Style="{StaticResource TopGrid}"
+        ToolTipService.ToolTip="{x:Bind MyVideo.VideoFile.Path, Mode=OneWay}">
+        <Grid
+            x:Name="GridVieww"
+            Style="{StaticResource GridViewContainer}"
+            Visibility="{x:Bind ViewModel.GridViewwVisibility, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter1}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Image Source="{x:Bind MyVideo.MyVideo.Thumbnail, Mode=OneWay}" Style="{StaticResource ThumbnailImageStyle}" />
+            <Border Style="{StaticResource DurationBorder}">
+                <TextBlock FontSize="12" Text="{x:Bind MyVideo.MyVideo.Duration, Mode=OneWay}" />
+            </Border>
+            <Border Grid.Row="1">
+                <TextBlock
+                    MaxLines="1"
+                    Style="{StaticResource GridTitleTextBlock}"
+                    Text="{x:Bind MyVideo.MyVideo.Title, Mode=OneWay}" />
+            </Border>
+        </Grid>
+        <Grid
+            x:Name="ListVieww"
+            Style="{StaticResource GridViewContainer}"
+            Visibility="{x:Bind ViewModel.ListViewwVisibility, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter1}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Width="88"
+                Source="{x:Bind MyVideo.MyVideo.Thumbnail, Mode=OneWay}"
+                Style="{StaticResource ThumbnailImageStyle}" />
+            <Border Grid.Column="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Padding="4,4,4,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Style="{StaticResource GridTitleTextBlock}"
+                        Text="{x:Bind MyVideo.MyVideo.Title, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Padding="4,0,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MyVideo.MyVideo.Duration, Mode=OneWay}" />
+                </Grid>
+            </Border>
+        </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="CurrentStateChanged">
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.StateChangedCommand}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <VisualState x:Name="PanoramicState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</UserControl>

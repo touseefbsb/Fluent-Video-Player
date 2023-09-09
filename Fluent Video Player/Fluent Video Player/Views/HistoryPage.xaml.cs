@@ -1,62 +1,65 @@
-﻿using CommunityToolkit.WinUI;
-using Fluent_Video_Player.Contracts.Services;
+﻿using System;
 using Fluent_Video_Player.Helpers;
 using Fluent_Video_Player.Models;
+using Fluent_Video_Player.Services;
 using Fluent_Video_Player.ViewModels;
+using Windows.Storage.AccessCache;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
-
-namespace Fluent_Video_Player.Views;
-
-public sealed partial class HistoryPage : Page
+namespace Fluent_Video_Player.Views
 {
-    #region Services
-    private readonly INavigationService _navigationService;
-    #endregion Services
-
-    public HistoryViewModel ViewModel { get; }
-
-    public HistoryPage(INavigationService navigationService)
+    public sealed partial class HistoryPage : Page
     {
-        ViewModel = App.GetService<HistoryViewModel>();
-        _navigationService = navigationService;
-        ViewModel.FileNotFoundInAppNotification = FileNotFoundInAppNotification;
-        InitializeComponent();
-    }
-    protected override void OnNavigatedTo(NavigationEventArgs e)
-    {
-        base.OnNavigatedTo(e);
-        MyFluentGridView.SearchBox.TextChanged += AutoSuggestBox_TextChanged;
-        MyFluentGridView.MyGridView.ItemClick += MyGridView_ItemClick;
-    }
-    protected override void OnNavigatedFrom(NavigationEventArgs e)
-    {
-        base.OnNavigatedFrom(e);
-        MyFluentGridView.SearchBox.TextChanged -= AutoSuggestBox_TextChanged;
-        MyFluentGridView.MyGridView.ItemClick -= MyGridView_ItemClick;
-    }
+        public HistoryViewModel ViewModel { get; } = new HistoryViewModel();
+        public HistoryPage() => InitializeComponent();
 
-    private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args) =>
-        ViewModel.ApplyFilter(MyFluentGridView.SearchBox.Text);
-
-    private async void MyGridView_ItemClick(object sender, ItemClickEventArgs e)
-    {
-        var item = e.ClickedItem;
-        if (item is Video)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            try
+            base.OnNavigatedTo(e);
+            MyFluentGridView.SearchBox.TextChanged += AutoSuggestBox_TextChanged;
+            MyFluentGridView.MyGridView.ItemClick += MyGridView_ItemClick;
+        }
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            MyFluentGridView.SearchBox.TextChanged -= AutoSuggestBox_TextChanged;
+            MyFluentGridView.MyGridView.ItemClick -= MyGridView_ItemClick;
+        }
+
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args) =>
+            ApplyFilter();
+
+        private void ApplyFilter()
+        {
+            ViewModel.HistorySource.Filter = _ => true;
+            ViewModel.HistorySource.Filter = string.IsNullOrWhiteSpace(MyFluentGridView.SearchBox.Text)
+                ? (_ => true)
+                : (x =>
+                ((Video)x).Title.Contains(MyFluentGridView.SearchBox.Text, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private async void MyGridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var item = e.ClickedItem;
+            if (item is Video video)
             {
-                await MediaHelper.MyMediaPlayer.SetNewSourceAsync((Video)e.ClickedItem, ViewModel.SourcePrivate, "History".GetLocalized());
-                _navigationService.NavigateTo(nameof(PlayerPage));
-            }
-            catch (System.IO.FileNotFoundException)
-            {
-                await ViewModel.FillHistoryAsync();
+                try
+                {
+                    await MediaHelper.MyMediaPlayer.SetNewSourceWithVideoCollection((Video)e.ClickedItem, ViewModel.HistorySourcePrivate, "History".GetLocalized());
+                    NavigationService.Navigate(typeof(PlayerPage));
+                }
+                catch (System.IO.FileNotFoundException)
+                {
+                    await ViewModel.FillHistoryAsync();
+                }
             }
         }
-    }
 
-    private void HistoryTemplate_HistoryItemDeleted(object sender, EventArgs.HistoryItemDeletedEventArgs e) =>
-        ViewModel.HistoryItemDeleted(e);
+        private void HistoryTemplate_HistoryItemDeleted(object sender, DataTemplates.HistoryItemDeletedEventArgs e)
+        {
+            StorageApplicationPermissions.FutureAccessList.Remove(e.MyVideo.HistoryToken);
+            ViewModel.HistorySourcePrivate.Remove(e.MyVideo);
+        }
+    }
 }

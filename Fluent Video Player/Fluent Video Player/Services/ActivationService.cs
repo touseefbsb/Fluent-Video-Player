@@ -1,72 +1,94 @@
-﻿using Fluent_Video_Player.Activation;
-using Fluent_Video_Player.Contracts.Services;
-using Fluent_Video_Player.Views;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
+using Fluent_Video_Player.Activation;
+using Fluent_Video_Player.Helpers;
 
-namespace Fluent_Video_Player.Services;
+using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-public class ActivationService : IActivationService
+namespace Fluent_Video_Player.Services
 {
-    private readonly ActivationHandler<LaunchActivatedEventArgs> _defaultHandler;
-    private readonly IEnumerable<IActivationHandler> _activationHandlers;
-    private readonly IThemeSelectorService _themeSelectorService;
-    private UIElement? _shell = null;
-
-    public ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService)
+    // For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
+    internal class ActivationService
     {
-        _defaultHandler = defaultHandler;
-        _activationHandlers = activationHandlers;
-        _themeSelectorService = themeSelectorService;
-    }
+        private readonly App _app;
+        private readonly Lazy<UIElement> _shell;
+        private readonly Type _defaultNavItem;
 
-    public async Task ActivateAsync(object activationArgs)
-    {
-        // Execute tasks before activation.
-        await InitializeAsync();
-
-        // Set the MainWindow Content.
-        if (App.MainWindow.Content == null)
+        public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
         {
-            _shell = App.GetService<ShellPage>();
-            App.MainWindow.Content = _shell ?? new Frame();
+            _app = app;
+            _shell = shell;
+            _defaultNavItem = defaultNavItem;
         }
 
-        // Handle activation via ActivationHandlers.
-        await HandleActivationAsync(activationArgs);
-
-        // Activate the MainWindow.
-        App.MainWindow.Activate();
-
-        // Execute tasks after activation.
-        await StartupAsync();
-    }
-
-    private async Task HandleActivationAsync(object activationArgs)
-    {
-        var activationHandler = _activationHandlers.FirstOrDefault(h => h.CanHandle(activationArgs));
-
-        if (activationHandler != null)
+        public async Task ActivateAsync(object activationArgs)
         {
-            await activationHandler.HandleAsync(activationArgs);
+            if (IsInteractive(activationArgs))
+            {
+                // Initialize things like registering background task before the app is loaded
+                await InitializeAsync();
+
+                // Do not repeat app initialization when the Window already has content,
+                // just ensure that the window is active
+                if (Window.Current.Content is null)
+                {
+                    // Create a Frame to act as the navigation context and navigate to the first page
+                    Window.Current.Content = _shell?.Value ?? new Frame();
+                }
+            }
+
+            var activationHandler = GetActivationHandlers()
+                                                .FirstOrDefault(h => h.CanHandle(activationArgs));
+
+            if (!(activationHandler is null))
+            {
+                await activationHandler.HandleAsync(activationArgs);
+            }
+
+            if (IsInteractive(activationArgs))
+            {
+                var defaultHandler = new DefaultLaunchActivationHandler(_defaultNavItem);
+                if (defaultHandler.CanHandle(activationArgs))
+                {
+                    await defaultHandler.HandleAsync(activationArgs);
+                }
+
+                // Ensure the current window is active
+                Window.Current.Activate();
+
+                // Tasks after activation
+                await StartupAsync();
+            }
         }
 
-        if (_defaultHandler.CanHandle(activationArgs))
+        private async Task InitializeAsync()
         {
-            await _defaultHandler.HandleAsync(activationArgs);
+            await ThemeSelectorService.InitializeAsync();
         }
-    }
 
-    private async Task InitializeAsync()
-    {
-        await _themeSelectorService.InitializeAsync().ConfigureAwait(false);
-        await Task.CompletedTask;
-    }
+        private async Task StartupAsync()
+        {
+            await ThemeSelectorService.SetRequestedThemeAsync();
+            await Singleton<DevCenterNotificationsService>.Instance.InitializeAsync();
+            await FirstRunDisplayService.ShowIfAppropriateAsync();
+            await WhatsNewDisplayService.ShowIfAppropriateAsync();
+        }
 
-    private async Task StartupAsync()
-    {
-        await _themeSelectorService.SetRequestedThemeAsync();
-        await Task.CompletedTask;
+        private IEnumerable<ActivationHandler> GetActivationHandlers()
+        {
+            yield return Singleton<DevCenterNotificationsService>.Instance;
+            yield return Singleton<SuspendAndResumeService>.Instance;
+            yield return Singleton<FileAssociationService>.Instance;
+        }
+
+        private bool IsInteractive(object args)
+        {
+            return args is IActivatedEventArgs;
+        }
     }
 }

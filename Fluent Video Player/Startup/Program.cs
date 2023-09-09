@@ -1,6 +1,12 @@
-﻿namespace Startup;
+﻿using System;
 
-internal class Program
+namespace Startup
 {
-    private static void Main(string[] args) => Console.WriteLine("Hello World!");
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+    }
 }

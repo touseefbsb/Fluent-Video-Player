@@ -1,19 +1,11 @@
 ﻿using Fluent_Video_Player.ViewModels;
+using Windows.UI.Xaml.Controls;
 
-using Microsoft.UI.Xaml.Controls;
-
-namespace Fluent_Video_Player.Views;
-
-public sealed partial class HomePage : Page
+namespace Fluent_Video_Player.Views
 {
-    public HomeViewModel ViewModel
+    public sealed partial class HomePage : Page
     {
-        get;
-    }
-
-    public HomePage()
-    {
-        ViewModel = App.GetService<HomeViewModel>();
-        InitializeComponent();
+        public HomeViewModel ViewModel { get; } = new();
+        public HomePage() => InitializeComponent();
     }
 }

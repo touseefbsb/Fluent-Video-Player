@@ -1,0 +1,637 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>Fluent Video Player</value>
+    <comment>Application display name</comment>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>流畅的视频播放器</value>
+    <comment>Application description</comment>
+  </data>
+  <data name="Shell_Home.Content" xml:space="preserve">
+    <value>家</value>
+    <comment>Navigation view item name for Home</comment>
+  </data>
+  <data name="Shell_Library.Content" xml:space="preserve">
+    <value>图书馆</value>
+    <comment>Navigation view item name for Library</comment>
+  </data>
+  <data name="Shell_History.Content" xml:space="preserve">
+    <value>历史</value>
+    <comment>Navigation view item name for History</comment>
+  </data>
+  <data name="Shell_LikedVideos.Content" xml:space="preserve">
+    <value>喜欢的视频</value>
+    <comment>Navigation view item name for LikedVideos</comment>
+  </data>
+  <data name="Shell_Player.Content" xml:space="preserve">
+    <value>视频播放器</value>
+    <comment>Navigation view item name for Player</comment>
+  </data>
+  <data name="ExceptionSettingsStorageExtensionsFileNameIsNullOrEmpty" xml:space="preserve">
+    <value>文件名为null或为空。 指定有效的文件名</value>
+    <comment>File name is null or empty to save file in settings storage extensions</comment>
+  </data>
+  <data name="Settings_Theme.Text" xml:space="preserve">
+    <value>选择主题</value>
+    <comment>Choose theme text for Settings</comment>
+  </data>
+  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
+    <value>暗</value>
+    <comment>Dark theme text for Settings</comment>
+  </data>
+  <data name="Settings_Theme_Default.Content" xml:space="preserve">
+    <value>默认</value>
+    <comment>Windows default theme text for Settings</comment>
+  </data>
+  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+    <value>光</value>
+    <comment>Light theme text for Settings</comment>
+  </data>
+  <data name="Settings_About.Text" xml:space="preserve">
+    <value>关于此应用程序</value>
+    <comment>About this application title for Settings</comment>
+  </data>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>流畅的视频播放器已经从头开始重新设计，使其成为适用于Windows 10设备的最佳视频播放器。 请给我提供反馈（twitter：@touseefbsb），以便我可以为您继续改进这个应用程序。</value>
+    <comment>About this application description for Settings</comment>
+  </data>
+  <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">
+    <value>隐私声明</value>
+    <comment>Privacy Statement link content for Settings</comment>
+  </data>
+  <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://1drv.ms/w/s!ArmYis0SUpsU3X7yDFLdwUDVpmHX</value>
+    <comment>Here is your Privacy Statement url for Settings</comment>
+  </data>
+  <data name="Settings_Personalization.Text" xml:space="preserve">
+    <value>个性化</value>
+    <comment>Personalization text for Settings</comment>
+  </data>
+  <data name="ExceptionEnumToBooleanConverterValueMustBeAnEnum" xml:space="preserve">
+    <value>值必须是枚举！</value>
+    <comment>Value must be an Enum in enum to boolean converter</comment>
+  </data>
+  <data name="ExceptionEnumToBooleanConverterParameterMustBeAnEnumName" xml:space="preserve">
+    <value>参数必须是枚举名称！</value>
+    <comment>Parameter must be an Enum name in enum to boolean converter</comment>
+  </data>
+  <data name="FirstRun_Body.Text" xml:space="preserve">
+    <value>流畅的视频播放器是您的Windows 10设备视频内容所需的一切。该应用程序的一些主要功能如下：
+
+1.流畅的高清视频播放。
+2.支持所有视频格式。
+3.支持汉堡导航和标签导航。
+4.迷你播放器将在您导航和继续使用应用程序时继续播放您的视频。
+5.很多Fluent设计。
+6.背景游戏。
+7.简单的键盘快捷键来控制播放。
+8.紧凑的叠加模式（画中画模式）。
+9.一个迷你进度条，即使你的媒体控件被隐藏也会一直显示（它是可选的，可以从控件或快捷键“B”关闭）。
+10.多个视频播放支持（还有下一个和上一个选项）
+11.输出音频设备选择。
+12.库一起显示文件夹和视频（如果需要，添加更多文件夹）。
+13.播放列表。
+14.主页可以更快地访问您的视频。
+
+此应用程序的所有功能完全基于用户反馈。如有任何错误报告或功能请求，请与我联系。 （twitter：@touseefbsb，电子邮件：touseefbsb@gmail.com）</value>
+    <comment>First use prompt message body</comment>
+  </data>
+  <data name="FirstRun_Title.Text" xml:space="preserve">
+    <value>欢迎使用流利的视频播放器</value>
+    <comment>First use prompt message title</comment>
+  </data>
+  <data name="AfterUpdate_Body.Text" xml:space="preserve">
+    <value>1.暂时移除 IP Ninja 合作伙伴 sdk
+2.暂时移除 OxyLabs 合作伙伴 SDK
+3.播放引擎升级
+
+保持反馈意见：touseefbsb@gmail.com（twitter：@touseefbsb）</value>
+    <comment>What's new prompt message body</comment>
+  </data>
+  <data name="AfterUpdate_Title.Text" xml:space="preserve">
+    <value>这个版本有什么新东西</value>
+    <comment>What's new prompt message title</comment>
+  </data>
+  <data name="FeedbackHub_Link.Content" xml:space="preserve">
+    <value>反馈</value>
+    <comment>Displayed as the link to launching the Feedback Hub.</comment>
+  </data>
+  <data name="AppNameBlock.Text" xml:space="preserve">
+    <value>Fluent Video Player</value>
+    <comment>app name text block text</comment>
+  </data>
+  <data name="ErrorAds" xml:space="preserve">
+    <value>获取广告时出错</value>
+    <comment>error ads text</comment>
+  </data>
+  <data name="SearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索</value>
+    <comment>search placeholder text</comment>
+  </data>
+  <data name="AddFolders.ToolTipService.ToolTip" xml:space="preserve">
+    <value>将文件夹添加到视频库</value>
+    <comment>add folders to your video library</comment>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>显示所有</value>
+    <comment>show all text</comment>
+  </data>
+  <data name="ShowFolder" xml:space="preserve">
+    <value>显示文件夹</value>
+    <comment>show all folders text</comment>
+  </data>
+  <data name="ShowVideo" xml:space="preserve">
+    <value>显示视频</value>
+    <comment>show all videos text</comment>
+  </data>
+  <data name="ToggleViewButton.Label" xml:space="preserve">
+    <value>切换视图</value>
+    <comment>gridview listview toggle button label</comment>
+  </data>
+  <data name="AddFolders.Label" xml:space="preserve">
+    <value>添加文件夹</value>
+    <comment>add folders to your video library</comment>
+  </data>
+  <data name="NoItemsBlock.Text" xml:space="preserve">
+    <value>此文件夹为空:(考虑在视频库中添加文件夹</value>
+    <comment>no folders or videos text.</comment>
+  </data>
+  <data name="NumOfItemsBlock.Text" xml:space="preserve">
+    <value>东西的个数 ：</value>
+    <comment>num of items text</comment>
+  </data>
+  <data name="ResumeBlock.Text" xml:space="preserve">
+    <value>你想从你离开的地方恢复吗？</value>
+    <comment>asking if user wants to resume from last played position</comment>
+  </data>
+  <data name="Yes.Content" xml:space="preserve">
+    <value>是</value>
+    <comment>yes button text</comment>
+  </data>
+  <data name="No.Content" xml:space="preserve">
+    <value>没有</value>
+    <comment>NO BUTTON TEXT</comment>
+  </data>
+  <data name="ToggleLoopingAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>切换循环</value>
+    <comment>toggle looping tooltip</comment>
+  </data>
+  <data name="MiniBarAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>切换迷你酒吧</value>
+    <comment>mini bar toggle label</comment>
+  </data>
+  <data name="OpenAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>打开</value>
+    <comment>open tooltip</comment>
+  </data>
+  <data name="AudioDeviceAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>选择音频设备</value>
+    <comment>Select Audio Device tooltip</comment>
+  </data>
+  <data name="AudioDeviceSelector.Text" xml:space="preserve">
+    <value>选择音频设备</value>
+    <comment>audio device to give audio output to</comment>
+  </data>
+  <data name="AudioComboBox.PlaceholderText" xml:space="preserve">
+    <value>音频设备</value>
+    <comment>Placeholder for audio device category combo box</comment>
+  </data>
+  <data name="AudioDeviceAppBarButton.Label" xml:space="preserve">
+    <value>音频设备</value>
+    <comment>Select Audio Device label</comment>
+  </data>
+  <data name="MiniBarAppBarButton.Label" xml:space="preserve">
+    <value>迷你吧</value>
+    <comment>mini bar toggle label</comment>
+  </data>
+  <data name="OpenAppBarButton.Label" xml:space="preserve">
+    <value>打开</value>
+    <comment>open label</comment>
+  </data>
+  <data name="ToggleLoopingAppBarButton.Label" xml:space="preserve">
+    <value>切换循环</value>
+    <comment>toggle looping tooltip</comment>
+  </data>
+  <data name="PipAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>切换迷你模式</value>
+    <comment>pip mode button tooltip</comment>
+  </data>
+  <data name="CloseMiniButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>关闭迷你播放器</value>
+    <comment>close mini player tooltip</comment>
+  </data>
+  <data name="DisplayModeBlock.Text" xml:space="preserve">
+    <value>切换显示模式</value>
+    <comment>toggle display mode label</comment>
+  </data>
+  <data name="DisplayModeButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>切换显示模式</value>
+    <comment>toggle display mode label</comment>
+  </data>
+  <data name="RatingBlock.Text" xml:space="preserve">
+    <value>你想评价和评论应用程序吗？</value>
+    <comment>asking for rating text</comment>
+  </data>
+  <data name="ClearHistoryButton.Label" xml:space="preserve">
+    <value>清除历史记录</value>
+    <comment>clear history label</comment>
+  </data>
+  <data name="NoHistoryBlock.Text" xml:space="preserve">
+    <value>历史是空的:(播放一些视频来创建一些历史记录;）</value>
+    <comment>no history text</comment>
+  </data>
+  <data name="ContentDialogPrimaryText" xml:space="preserve">
+    <value>是</value>
+    <comment>primary text</comment>
+  </data>
+  <data name="ContentDialogSecondaryText" xml:space="preserve">
+    <value>没有</value>
+    <comment>SECONDARY TEXT</comment>
+  </data>
+  <data name="ConfirmClearHistoryText" xml:space="preserve">
+    <value>您确定要清除历史记录吗？</value>
+    <comment>confirmtion to clear history text</comment>
+  </data>
+  <data name="Seek60Backward" xml:space="preserve">
+    <value>寻求六十秒回来</value>
+    <comment>seek backward label</comment>
+  </data>
+  <data name="Seek60Forward" xml:space="preserve">
+    <value>寻求六十秒前进</value>
+    <comment>seek forward label</comment>
+  </data>
+  <data name="Seek5Backward" xml:space="preserve">
+    <value>寻求五秒钟回来</value>
+    <comment>seek backward label</comment>
+  </data>
+  <data name="Seek5Forward" xml:space="preserve">
+    <value>寻求五秒前进</value>
+    <comment>seek forward label</comment>
+  </data>
+  <data name="Seek30Backward" xml:space="preserve">
+    <value>寻求三十秒回来</value>
+    <comment>seek backward label</comment>
+  </data>
+  <data name="Seek30Forward" xml:space="preserve">
+    <value>寻求三十秒前进</value>
+    <comment>seek forward label</comment>
+  </data>
+  <data name="VideoLibraryFolders.Text" xml:space="preserve">
+    <value>视频库中的文件夹</value>
+    <comment>Folders in ur video library on settings page</comment>
+  </data>
+  <data name="VolumeDown" xml:space="preserve">
+    <value>音量减小</value>
+    <comment>voluem down label</comment>
+  </data>
+  <data name="VolumeUp" xml:space="preserve">
+    <value>提高音量</value>
+    <comment>volume up label</comment>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>历史</value>
+    <comment>history title</comment>
+  </data>
+  <data name="RateAndReviewBlock.Text" xml:space="preserve">
+    <value>评分和评论应用</value>
+    <comment>rate and review text on setings page</comment>
+  </data>
+  <data name="ShareBlock.Text" xml:space="preserve">
+    <value>分享这个应用程式</value>
+    <comment>share this app</comment>
+  </data>
+  <data name="InWindowsStore" xml:space="preserve">
+    <value>在Windows应用商店中</value>
+    <comment>share dialog description</comment>
+  </data>
+  <data name="SettingsGeneral.Header" xml:space="preserve">
+    <value>一般</value>
+    <comment>general settings pivot header</comment>
+  </data>
+  <data name="SettingsVideoLibrary.Header" xml:space="preserve">
+    <value>视频库</value>
+    <comment>video library settings pivot header</comment>
+  </data>
+  <data name="VideoFoldersTitle" xml:space="preserve">
+    <value>图书馆文件夹</value>
+    <comment>library folders title</comment>
+  </data>
+  <data name="KeyboardShortCutsTitle" xml:space="preserve">
+    <value>键盘快捷键</value>
+    <comment>shortcuts title</comment>
+  </data>
+  <data name="SettingsKeyboard.Header" xml:space="preserve">
+    <value>键盘快捷键</value>
+    <comment>keyboard shortcuts</comment>
+  </data>
+  <data name="PlayPause" xml:space="preserve">
+    <value>播放/暂停</value>
+    <comment>play pause label</comment>
+  </data>
+  <data name="MuteUnMute" xml:space="preserve">
+    <value>静音/取消静音</value>
+    <comment>mute unmute label</comment>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>全屏</value>
+    <comment>full screen label</comment>
+  </data>
+  <data name="NextTrack" xml:space="preserve">
+    <value>下一曲</value>
+    <comment>next track label</comment>
+  </data>
+  <data name="PreviousTrack" xml:space="preserve">
+    <value>上一曲目</value>
+    <comment>previous track label</comment>
+  </data>
+  <data name="ToggleLooping" xml:space="preserve">
+    <value>切换循环</value>
+    <comment>Togle loooping label</comment>
+  </data>
+  <data name="ToggleMiniBar" xml:space="preserve">
+    <value>切换Mini Seek Bar</value>
+    <comment>toggle mini bar label</comment>
+  </data>
+  <data name="TogglePipMode" xml:space="preserve">
+    <value>切换图片模式中的图片</value>
+    <comment>pip mode label</comment>
+  </data>
+  <data name="SpaceBar" xml:space="preserve">
+    <value>空格键</value>
+    <comment>spacebar text</comment>
+  </data>
+  <data name="M" xml:space="preserve">
+    <value>M</value>
+    <comment>m text</comment>
+  </data>
+  <data name="F/Esc" xml:space="preserve">
+    <value>F / Esc</value>
+    <comment>f/esc text</comment>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>向上</value>
+    <comment>Up text</comment>
+  </data>
+  <data name="Down" xml:space="preserve">
+    <value>下</value>
+    <comment>Down text</comment>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>向右箭头</value>
+    <comment>Right text</comment>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>向左箭头</value>
+    <comment>Left text</comment>
+  </data>
+  <data name="Right30" xml:space="preserve">
+    <value>Shift +向右箭头</value>
+    <comment>Right text</comment>
+  </data>
+  <data name="Left30" xml:space="preserve">
+    <value>Shift +箭头向左</value>
+    <comment>Left text</comment>
+  </data>
+  <data name="Right60" xml:space="preserve">
+    <value>Ctrl +向右箭头</value>
+    <comment>Right text</comment>
+  </data>
+  <data name="Left60" xml:space="preserve">
+    <value>Ctrl +向左箭头</value>
+    <comment>Left text</comment>
+  </data>
+  <data name="D" xml:space="preserve">
+    <value>D</value>
+    <comment>D text</comment>
+  </data>
+  <data name="A" xml:space="preserve">
+    <value>A</value>
+    <comment>A text</comment>
+  </data>
+  <data name="L" xml:space="preserve">
+    <value>L</value>
+    <comment>L text</comment>
+  </data>
+  <data name="P" xml:space="preserve">
+    <value>P</value>
+    <comment>P text</comment>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>B</value>
+    <comment>B text</comment>
+  </data>
+  <data name="ViewAllButton.Label" xml:space="preserve">
+    <value>查看全部</value>
+    <comment>view all text</comment>
+  </data>
+  <data name="TrainNextButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>下一个</value>
+    <comment>next train button label</comment>
+  </data>
+  <data name="TrainPreviousButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>以前</value>
+    <comment>previous button traun label</comment>
+  </data>
+  <data name="NoHistory" xml:space="preserve">
+    <value>历史是空的:(播放一些视频来创建一些历史记录;）</value>
+    <comment>no history text</comment>
+  </data>
+  <data name="NoItems" xml:space="preserve">
+    <value>此文件夹为空:(考虑在视频库中添加文件夹</value>
+    <comment>no folders or videos text.</comment>
+  </data>
+  <data name="PlaylistsItemHeader.Content" xml:space="preserve">
+    <value>播放列表&gt;</value>
+    <comment>playlist item header in navigation view.</comment>
+  </data>
+  <data name="AddToPlaylist.ToolTipService.ToolTip" xml:space="preserve">
+    <value>添加到播放列表</value>
+    <comment>add to list tooltip</comment>
+  </data>
+  <data name="DeletePlaylistButton.Label" xml:space="preserve">
+    <value>删除播放列表</value>
+    <comment>delete playlist text</comment>
+  </data>
+  <data name="EmptyPlaylistBlock.Text" xml:space="preserve">
+    <value>此播放列表为空。</value>
+    <comment>empty playlist block</comment>
+  </data>
+  <data name="AddToBlock.Text" xml:space="preserve">
+    <value>添加...</value>
+    <comment>add to text</comment>
+  </data>
+  <data name="CreateNewPlaylistBlock.Text" xml:space="preserve">
+    <value>创建新的播放列表</value>
+    <comment>create ne wplyalist text</comment>
+  </data>
+  <data name="NewPlaylistNameBox.PlaceholderText" xml:space="preserve">
+    <value>输入新播放列表名称</value>
+    <comment>new playlist name textbox placeholder</comment>
+  </data>
+  <data name="PlaylistExistsBlock.Text" xml:space="preserve">
+    <value>请尝试一个有效的播放列表名称，该名称已不存在。</value>
+    <comment>playlist exist text</comment>
+  </data>
+  <data name="ConfirmDeletePlaylistText" xml:space="preserve">
+    <value>您确定要删除此播放列表吗？</value>
+    <comment>confirmation text for deleting playlist</comment>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>请确认</value>
+    <comment>confirmation dialog title </comment>
+  </data>
+  <data name="FileAccessBlock.Text" xml:space="preserve">
+    <value>看不到您的视频？ 请确保在“Windows设置&gt;隐私&gt;文件系统”中为此应用启用“文件访问”</value>
+    <comment>file system access guide.</comment>
+  </data>
+  <data name="PlayerPageButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>去玩家</value>
+    <comment>go to playr page text</comment>
+  </data>
+  <data name="PlaylistDisabledBlock.Text" xml:space="preserve">
+    <value>请先播放视频，然后使用“添加到播放列表”功能</value>
+    <comment>playlist disabled block text</comment>
+  </data>
+  <data name="AllowFileAccessBlock.Text" xml:space="preserve">
+    <value>允许文件访问</value>
+    <comment>allow file system access buttom text</comment>
+  </data>
+  <data name="FileAccessWarningText" xml:space="preserve">
+    <value>好像我们可能无法访问您的某些视频。 Windows现在将打开“设置”应用，以便您可以允许文件系统访问此应用。 请注意，当您更改此设置时，应用可能会关闭，您需要重新运行它。 继续？</value>
+    <comment>file acess warning</comment>
+  </data>
+  <data name="FileNotFoundBlock.Text" xml:space="preserve">
+    <value>您的设备上的某些视频文件已被修改，移动或删除，因此无法访问这些文件。</value>
+    <comment>history file not found block message.</comment>
+  </data>
+  <data name="DefaultAppBlock.Text" xml:space="preserve">
+    <value>让我成为默认视频播放器</value>
+    <comment>default app text</comment>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>图书馆</value>
+    <comment>library header</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>好的</value>
+    <comment>ok text</comment>
+  </data>
+</root>

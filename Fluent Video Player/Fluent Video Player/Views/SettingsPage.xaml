@@ -2,65 +2,286 @@
     x:Class="Fluent_Video_Player.Views.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="using:Fluent_Video_Player.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:data="using:Fluent_Video_Player.Models"
+    xmlns:dataTemplates="using:Fluent_Video_Player.DataTemplates"
+    xmlns:helper="using:Fluent_Video_Player.Helpers"
+    xmlns:iconPacks="using:MahApps.Metro.IconPacks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:xaml="using:Microsoft.UI.Xaml"
+    xmlns:userControls="using:Fluent_Video_Player.Controls"
+    xmlns:xaml="using:Windows.UI.Xaml"
+    Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
     </Page.Resources>
+
     <Grid>
-        <StackPanel x:Name="ContentArea">
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock x:Uid="Settings_Theme" />
+        <Pivot Style="{StaticResource PivotStyle1}">
+            <PivotItem x:Uid="SettingsGeneral" Margin="0">
+                <ScrollViewer>
+                    <Grid x:Name="ContentArea" Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel Padding="{StaticResource MediumLeftTopRightMargin}">
+                            <!--<TextBlock Visibility="Visible"
+                x:Uid="Settings_Personalization"
+                Style="{StaticResource SubtitleTextBlockStyle}" />-->
+                            <StackPanel Margin="{StaticResource SettingsSubheaderMargin}" Orientation="Horizontal">
+                                <iconPacks:PackIconMaterialDesign
+                                    Width="28"
+                                    Height="28"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                                    Kind="ColorLens" />
+                                <TextBlock
+                                    x:Uid="Settings_Theme"
+                                    Padding="12,0,0,0"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource TitleTextBlockStyle}" />
+                            </StackPanel>
 
-                <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                    <RadioButton
-                        x:Uid="Settings_Theme_Light"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        FontSize="15"
-                        GroupName="AppTheme"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Light</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Uid="Settings_Theme_Dark"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        FontSize="15"
-                        GroupName="AppTheme"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Dark</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Uid="Settings_Theme_Default"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        FontSize="15"
-                        GroupName="AppTheme"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Default</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                </StackPanel>
-            </StackPanel>
+                            <StackPanel Padding="0,12,0,8" Orientation="Horizontal">
+                                <RadioButton
+                                    x:Uid="Settings_Theme_Light"
+                                    Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                                    GroupName="AppTheme"
+                                    IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}">
+                                    <RadioButton.CommandParameter>
+                                        <xaml:ElementTheme>Light</xaml:ElementTheme>
+                                    </RadioButton.CommandParameter>
+                                </RadioButton>
+                                <RadioButton
+                                    x:Uid="Settings_Theme_Dark"
+                                    Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                                    GroupName="AppTheme"
+                                    IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}">
+                                    <RadioButton.CommandParameter>
+                                        <xaml:ElementTheme>Dark</xaml:ElementTheme>
+                                    </RadioButton.CommandParameter>
+                                </RadioButton>
+                                <RadioButton
+                                    x:Uid="Settings_Theme_Default"
+                                    Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                                    GroupName="AppTheme"
+                                    IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}">
+                                    <RadioButton.CommandParameter>
+                                        <xaml:ElementTheme>Default</xaml:ElementTheme>
+                                    </RadioButton.CommandParameter>
+                                </RadioButton>
+                            </StackPanel>
+                        </StackPanel>
 
-            <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        <Grid
+                            Grid.Row="1"
+                            Padding="{StaticResource MediumLeftTopRightMargin}"
+                            VerticalAlignment="Stretch"
+                            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Uid="Settings_About" Style="{StaticResource SubtitleTextBlockStyle}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="{StaticResource EightTopMargin}"
+                                Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />
+                            <TextBlock
+                                x:Uid="Settings_AboutDescription"
+                                Grid.Row="2"
+                                Margin="{StaticResource EightTopMargin}"
+                                TextWrapping="WrapWholeWords" />
 
-            <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />
+                            <HyperlinkButton
+                                x:Uid="Settings_PrivacyTermsLink"
+                                Grid.Row="3"
+                                Margin="{StaticResource EightTopMargin}" />
 
-                <TextBlock
-                    x:Uid="Settings_AboutDescription"
-                    Margin="{StaticResource XSmallTopMargin}"
-                    Style="{ThemeResource BodyTextBlockStyle}" />
-                <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
-            </StackPanel>
-        </StackPanel>
+                            <HyperlinkButton
+                                x:Uid="FeedbackHub_Link"
+                                Grid.Row="4"
+                                Margin="{StaticResource EightTopMargin}"
+                                Command="{x:Bind ViewModel.LaunchFeedbackHubCommand}"
+                                Visibility="{x:Bind ViewModel.FeedbackLinkVisibility}" />
+                            <TextBlock
+                                x:Uid="FileAccessBlock"
+                                Grid.Row="5"
+                                Margin="{StaticResource MediumTopBottomMargin}"
+                                FontSize="{StaticResource MediumFontSize}" />
+                            <StackPanel Grid.Row="6" Margin="0,8,0,0">
+                                <Button
+                                    Width="360"
+                                    Margin="0,4,0,0"
+                                    VerticalAlignment="Stretch"
+                                    Command="{x:Bind ViewModel.FileAccessCommand}"
+                                    Style="{ThemeResource ButtonRevealStyle}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterialDesign
+                                            Width="28"
+                                            Height="28"
+                                            Padding="4"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                                            Kind="FolderShared" />
+                                        <TextBlock
+                                            x:Uid="AllowFileAccessBlock"
+                                            Padding="4"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    Width="360"
+                                    Margin="0,4,0,0"
+                                    VerticalAlignment="Stretch"
+                                    Command="{x:Bind ViewModel.DefaultAppCommand}"
+                                    Style="{ThemeResource ButtonRevealStyle}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterialDesign
+                                            Width="28"
+                                            Height="28"
+                                            Padding="4"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                                            Kind="VideoLabel" />
+                                        <TextBlock
+                                            x:Uid="DefaultAppBlock"
+                                            Padding="4"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    Width="360"
+                                    Margin="0,4,0,0"
+                                    VerticalAlignment="Stretch"
+                                    Command="{x:Bind ViewModel.RatingYesCommand}"
+                                    Style="{ThemeResource ButtonRevealStyle}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterialDesign
+                                            Width="28"
+                                            Height="28"
+                                            Padding="4"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                                            Kind="RateReview" />
+                                        <TextBlock
+                                            x:Uid="RateAndReviewBlock"
+                                            Padding="4"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+
+                                <Button
+                                    Width="360"
+                                    Margin="0,4,0,0"
+                                    VerticalAlignment="Stretch"
+                                    Command="{x:Bind ViewModel.SharedCommand}"
+                                    Style="{ThemeResource ButtonRevealStyle}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterialDesign
+                                            Width="28"
+                                            Height="28"
+                                            Padding="4"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                                            Kind="Share" />
+                                        <TextBlock
+                                            x:Uid="ShareBlock"
+                                            Padding="4"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem x:Uid="SettingsVideoLibrary" Margin="0">
+                <userControls:FluentGridView
+                    x:Name="MyFluentGridView"
+                    IsLoading="{x:Bind ViewModel.LibraryLoading, Mode=OneWay}"
+                    ItemsCount="{x:Bind ViewModel.LibraryFoldersPrivate.Count, Mode=OneWay}"
+                    MyDesiredWidth="{StaticResource GridDesiredWidth}"
+                    MyItemHeight="{StaticResource GridItemHeight}"
+                    MyItemsSource="{x:Bind ViewModel.LibraryFolders, Mode=OneWay}"
+                    MyTitle="{x:Bind ViewModel.VideoFoldersTitle}">
+                    <userControls:FluentGridView.MyItemTemplate>
+                        <DataTemplate x:DataType="data:Folder">
+                            <dataTemplates:VideoFolderTemplate LibraryFolderRemoved="VideoFolderTemplate_LibraryFolderRemoved" MyFolder="{x:Bind THIS}" />
+                        </DataTemplate>
+                    </userControls:FluentGridView.MyItemTemplate>
+                    <userControls:FluentGridView.MyCustomHeaderIcon>
+                        <iconPacks:PackIconMaterialDesign
+                            Width="28"
+                            Height="28"
+                            Margin="10,0,4,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                            Kind="VideoLibrary" />
+                    </userControls:FluentGridView.MyCustomHeaderIcon>
+                    <userControls:FluentGridView.MyCustomHeader>
+                        <Grid Height="40">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <CommandBar
+                                x:Name="MainCommandBar"
+                                Background="Transparent"
+                                DefaultLabelPosition="Right">
+                                <AppBarButton
+                                    x:Uid="AddFolders"
+                                    Command="{x:Bind ViewModel.AddFoldersCommand}"
+                                    Foreground="{ThemeResource SystemControlBackgroundBaseMediumHighBrush}">
+                                    <AppBarButton.Content>
+                                        <iconPacks:PackIconMaterialDesign Kind="LibraryAdd" />
+                                    </AppBarButton.Content>
+                                </AppBarButton>
+                            </CommandBar>
+                        </Grid>
+                    </userControls:FluentGridView.MyCustomHeader>
+                </userControls:FluentGridView>
+            </PivotItem>
+            <PivotItem x:Uid="SettingsKeyboard" Margin="0">
+                <userControls:FluentGridView
+                    x:Name="MyShortCutGridView"
+                    IsLoading="{x:Bind ViewModel.ShortcutLoading, Mode=OneWay}"
+                    ItemsCount="{x:Bind ViewModel.KeyboardShortCutsPrivate.Count, Mode=OneWay}"
+                    MyDesiredWidth="{StaticResource GridDesiredWidth}"
+                    MyItemHeight="{StaticResource GridItemHeight}"
+                    MyItemsSource="{x:Bind ViewModel.KeyboardShortCuts, Mode=OneWay}"
+                    MyTitle="{x:Bind ViewModel.KeyboardShortCutsTitle}">
+                    <userControls:FluentGridView.MyItemTemplate>
+                        <DataTemplate x:DataType="data:KeyboardShortCut">
+                            <dataTemplates:KeyboardShortCutTemplate MyShortCut="{x:Bind THIS}" />
+                        </DataTemplate>
+                    </userControls:FluentGridView.MyItemTemplate>
+                    <userControls:FluentGridView.MyCustomHeaderIcon>
+                        <iconPacks:PackIconMaterialDesign
+                            Width="28"
+                            Height="28"
+                            Margin="10,0,4,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                            Kind="Keyboard" />
+                    </userControls:FluentGridView.MyCustomHeaderIcon>
+                </userControls:FluentGridView>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

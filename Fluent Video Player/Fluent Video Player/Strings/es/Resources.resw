@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>Fluent Video Player</value>
+    <comment>Application display name</comment>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Reproductor de video fluido</value>
+    <comment>Application description</comment>
+  </data>
+  <data name="Shell_Home.Content" xml:space="preserve">
+    <value>Casa</value>
+    <comment>Navigation view item name for Home</comment>
+  </data>
+  <data name="Shell_Library.Content" xml:space="preserve">
+    <value>Biblioteca</value>
+    <comment>Navigation view item name for Library</comment>
+  </data>
+  <data name="Shell_History.Content" xml:space="preserve">
+    <value>Historia</value>
+    <comment>Navigation view item name for History</comment>
+  </data>
+  <data name="Shell_LikedVideos.Content" xml:space="preserve">
+    <value>Me gustó videos</value>
+    <comment>Navigation view item name for LikedVideos</comment>
+  </data>
+  <data name="Shell_Player.Content" xml:space="preserve">
+    <value>reproductor de video</value>
+    <comment>Navigation view item name for Player</comment>
+  </data>
+  <data name="ExceptionSettingsStorageExtensionsFileNameIsNullOrEmpty" xml:space="preserve">
+    <value>El nombre del archivo es nulo o está vacío. Especifique un nombre de archivo válido</value>
+    <comment>File name is null or empty to save file in settings storage extensions</comment>
+  </data>
+  <data name="Settings_Theme.Text" xml:space="preserve">
+    <value>Escoge un tema</value>
+    <comment>Choose theme text for Settings</comment>
+  </data>
+  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
+    <value>Oscura</value>
+    <comment>Dark theme text for Settings</comment>
+  </data>
+  <data name="Settings_Theme_Default.Content" xml:space="preserve">
+    <value>ventanas por defecto</value>
+    <comment>Windows default theme text for Settings</comment>
+  </data>
+  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+    <value>Ligera</value>
+    <comment>Light theme text for Settings</comment>
+  </data>
+  <data name="Settings_About.Text" xml:space="preserve">
+    <value>Acerca de esta aplicación</value>
+    <comment>About this application title for Settings</comment>
+  </data>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>Fluent Video Player ha sido rediseñado desde cero para convertirlo en el mejor reproductor de video posible para su dispositivo Windows 10, en todos los aspectos. Por favor, envíeme sus comentarios (twitter: @touseefbsb) para que pueda seguir mejorando esta aplicación para usted.</value>
+    <comment>About this application description for Settings</comment>
+  </data>
+  <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">
+    <value>Declaracion de privacidad</value>
+    <comment>Privacy Statement link content for Settings</comment>
+  </data>
+  <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://1drv.ms/w/s!ArmYis0SUpsU3X7yDFLdwUDVpmHX</value>
+    <comment>Here is your Privacy Statement url for Settings</comment>
+  </data>
+  <data name="Settings_Personalization.Text" xml:space="preserve">
+    <value>Personalización</value>
+    <comment>Personalization text for Settings</comment>
+  </data>
+  <data name="ExceptionEnumToBooleanConverterValueMustBeAnEnum" xml:space="preserve">
+    <value>El valor debe ser un Enum!</value>
+    <comment>Value must be an Enum in enum to boolean converter</comment>
+  </data>
+  <data name="ExceptionEnumToBooleanConverterParameterMustBeAnEnumName" xml:space="preserve">
+    <value>parámetro debe ser un nombre Enum!</value>
+    <comment>Parameter must be an Enum name in enum to boolean converter</comment>
+  </data>
+  <data name="FirstRun_Body.Text" xml:space="preserve">
+    <value>Fluent Video Player es todo lo que necesita para el contenido de video de su dispositivo con Windows 10. Algunas de las principales características de esta aplicación son las siguientes:
+
+1. Reproducción de video HD sin problemas.
+2. Todos los formatos de video soportados.
+3. Tanto la navegación de la hamburguesa como la navegación con pestañas son compatibles.
+4. Mini Player seguirá reproduciendo tus videos mientras navegas y continúas usando la aplicación.
+5. Un montón de diseño fluido.
+6. Juego de fondo.
+7. Atajos de teclado simples para controlar su reproducción.
+8. Modo de superposición compacta (imagen en modo de imagen).
+9. Una mini barra de progreso que seguirá apareciendo incluso cuando sus controles de medios estén ocultos (por supuesto, es opcional, se puede desactivar desde los controles o la tecla de acceso directo "B").
+10. Soporte de reproducción de múltiples videos (con la opción siguiente y anterior también)
+11. Selección de dispositivo de salida de audio.
+12. Biblioteca muestre carpetas y videos juntos (agregue más carpetas si es necesario).
+13. Listas de reproducción.
+14. Página de inicio para un acceso más rápido a tus videos.
+
+Todas las características de esta aplicación están totalmente basadas en los comentarios de los usuarios. Por favor, póngase en contacto conmigo para cualquier informe de errores o solicitudes de características. (twitter: @touseefbsb, correo electrónico: touseefbsb@gmail.com)</value>
+    <comment>First use prompt message body</comment>
+  </data>
+  <data name="FirstRun_Title.Text" xml:space="preserve">
+    <value>Bienvenido a Fluent Video Player</value>
+    <comment>First use prompt message title</comment>
+  </data>
+  <data name="AfterUpdate_Body.Text" xml:space="preserve">
+    <value>1. Eliminación del sdk de socios de IP Ninja por ahora.
+2. El SDK de socios de OxyLabs se eliminó por ahora.
+3. Motor de reproducción actualizado.
+
+
+sigue enviando tus comentarios: touseefbsb@gmail.com (twitter: @touseefbsb)</value>
+    <comment>What's new prompt message body</comment>
+  </data>
+  <data name="AfterUpdate_Title.Text" xml:space="preserve">
+    <value>Que hay de nuevo en esta version</value>
+    <comment>What's new prompt message title</comment>
+  </data>
+  <data name="FeedbackHub_Link.Content" xml:space="preserve">
+    <value>Realimentación</value>
+    <comment>Displayed as the link to launching the Feedback Hub.</comment>
+  </data>
+  <data name="AppNameBlock.Text" xml:space="preserve">
+    <value>Fluent Video Player</value>
+    <comment>app name text block text</comment>
+  </data>
+  <data name="ErrorAds" xml:space="preserve">
+    <value>Error al obtener anuncios</value>
+    <comment>error ads text</comment>
+  </data>
+  <data name="SearchBox.PlaceholderText" xml:space="preserve">
+    <value>Buscar</value>
+    <comment>search placeholder text</comment>
+  </data>
+  <data name="AddFolders.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Añadir carpetas a la biblioteca de videos</value>
+    <comment>add folders to your video library</comment>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Mostrar todo</value>
+    <comment>show all text</comment>
+  </data>
+  <data name="ShowFolder" xml:space="preserve">
+    <value>Mostrar carpetas</value>
+    <comment>show all folders text</comment>
+  </data>
+  <data name="ShowVideo" xml:space="preserve">
+    <value>Mostrar videos</value>
+    <comment>show all videos text</comment>
+  </data>
+  <data name="ToggleViewButton.Label" xml:space="preserve">
+    <value>Cambiar vista</value>
+    <comment>gridview listview toggle button label</comment>
+  </data>
+  <data name="AddFolders.Label" xml:space="preserve">
+    <value>Añadir carpetas</value>
+    <comment>add folders to your video library</comment>
+  </data>
+  <data name="NoItemsBlock.Text" xml:space="preserve">
+    <value>Esta carpeta está vacía :( Considera agregar carpetas a tu biblioteca de videos</value>
+    <comment>no folders or videos text.</comment>
+  </data>
+  <data name="NumOfItemsBlock.Text" xml:space="preserve">
+    <value>Número de items :</value>
+    <comment>num of items text</comment>
+  </data>
+  <data name="ResumeBlock.Text" xml:space="preserve">
+    <value>¿Quieres reanudar desde donde lo dejaste?</value>
+    <comment>asking if user wants to resume from last played position</comment>
+  </data>
+  <data name="Yes.Content" xml:space="preserve">
+    <value>Sí</value>
+    <comment>yes button text</comment>
+  </data>
+  <data name="No.Content" xml:space="preserve">
+    <value>No</value>
+    <comment>NO BUTTON TEXT</comment>
+  </data>
+  <data name="ToggleLoopingAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Toggle Looping</value>
+    <comment>toggle looping tooltip</comment>
+  </data>
+  <data name="MiniBarAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Toggle Mini Bar</value>
+    <comment>mini bar toggle label</comment>
+  </data>
+  <data name="OpenAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Video abierto</value>
+    <comment>open tooltip</comment>
+  </data>
+  <data name="AudioDeviceAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Seleccionar dispositivo de audio</value>
+    <comment>Select Audio Device tooltip</comment>
+  </data>
+  <data name="AudioDeviceSelector.Text" xml:space="preserve">
+    <value>Seleccionar dispositivo de audio</value>
+    <comment>audio device to give audio output to</comment>
+  </data>
+  <data name="AudioComboBox.PlaceholderText" xml:space="preserve">
+    <value>Dispositivo de audio</value>
+    <comment>Placeholder for audio device category combo box</comment>
+  </data>
+  <data name="AudioDeviceAppBarButton.Label" xml:space="preserve">
+    <value>Dispositivo de audio</value>
+    <comment>Select Audio Device label</comment>
+  </data>
+  <data name="MiniBarAppBarButton.Label" xml:space="preserve">
+    <value>Mini Bar</value>
+    <comment>mini bar toggle label</comment>
+  </data>
+  <data name="OpenAppBarButton.Label" xml:space="preserve">
+    <value>Video abierto</value>
+    <comment>open label</comment>
+  </data>
+  <data name="ToggleLoopingAppBarButton.Label" xml:space="preserve">
+    <value>Toggle Looping</value>
+    <comment>toggle looping tooltip</comment>
+  </data>
+  <data name="PipAppBarButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Toggle Mini Mode</value>
+    <comment>pip mode button tooltip</comment>
+  </data>
+  <data name="CloseMiniButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Cerrar Mini Player</value>
+    <comment>close mini player tooltip</comment>
+  </data>
+  <data name="DisplayModeBlock.Text" xml:space="preserve">
+    <value>Alternar modo de visualización</value>
+    <comment>toggle display mode label</comment>
+  </data>
+  <data name="DisplayModeButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Alternar modo de visualización</value>
+    <comment>toggle display mode label</comment>
+  </data>
+  <data name="RatingBlock.Text" xml:space="preserve">
+    <value>¿Le gustaría por favor calificar y revisar la aplicación?</value>
+    <comment>asking for rating text</comment>
+  </data>
+  <data name="ClearHistoryButton.Label" xml:space="preserve">
+    <value>Borrar historia</value>
+    <comment>clear history label</comment>
+  </data>
+  <data name="NoHistoryBlock.Text" xml:space="preserve">
+    <value>La historia está vacía :( Reproduce algunos videos para crear algo de historia;)</value>
+    <comment>no history text</comment>
+  </data>
+  <data name="ContentDialogPrimaryText" xml:space="preserve">
+    <value>Sí</value>
+    <comment>primary text</comment>
+  </data>
+  <data name="ContentDialogSecondaryText" xml:space="preserve">
+    <value>No</value>
+    <comment>SECONDARY TEXT</comment>
+  </data>
+  <data name="ConfirmClearHistoryText" xml:space="preserve">
+    <value>¿Estás seguro de que quieres borrar tu historial?</value>
+    <comment>confirmtion to clear history text</comment>
+  </data>
+  <data name="Seek60Backward" xml:space="preserve">
+    <value>Buscar 60s de vuelta</value>
+    <comment>seek backward label</comment>
+  </data>
+  <data name="Seek60Forward" xml:space="preserve">
+    <value>Buscar 60s adelante</value>
+    <comment>seek forward label</comment>
+  </data>
+  <data name="Seek5Backward" xml:space="preserve">
+    <value>Buscar 5s de vuelta</value>
+    <comment>seek backward label</comment>
+  </data>
+  <data name="Seek5Forward" xml:space="preserve">
+    <value>Buscar 5s adelante</value>
+    <comment>seek forward label</comment>
+  </data>
+  <data name="Seek30Backward" xml:space="preserve">
+    <value>Buscar 30s de vuelta</value>
+    <comment>seek backward label</comment>
+  </data>
+  <data name="Seek30Forward" xml:space="preserve">
+    <value>Buscar 30s adelante</value>
+    <comment>seek forward label</comment>
+  </data>
+  <data name="VideoLibraryFolders.Text" xml:space="preserve">
+    <value>Carpetas en tu videoteca</value>
+    <comment>Folders in ur video library on settings page</comment>
+  </data>
+  <data name="VolumeDown" xml:space="preserve">
+    <value>Bajar volumen</value>
+    <comment>voluem down label</comment>
+  </data>
+  <data name="VolumeUp" xml:space="preserve">
+    <value>Sube el volumen</value>
+    <comment>volume up label</comment>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historia</value>
+    <comment>history title</comment>
+  </data>
+  <data name="RateAndReviewBlock.Text" xml:space="preserve">
+    <value>Tarifa y revisión de la aplicación</value>
+    <comment>rate and review text on setings page</comment>
+  </data>
+  <data name="ShareBlock.Text" xml:space="preserve">
+    <value>Comparte esta aplicación</value>
+    <comment>share this app</comment>
+  </data>
+  <data name="InWindowsStore" xml:space="preserve">
+    <value>En la tienda de Windows</value>
+    <comment>share dialog description</comment>
+  </data>
+  <data name="SettingsGeneral.Header" xml:space="preserve">
+    <value>General</value>
+    <comment>general settings pivot header</comment>
+  </data>
+  <data name="SettingsVideoLibrary.Header" xml:space="preserve">
+    <value>Videoteca</value>
+    <comment>video library settings pivot header</comment>
+  </data>
+  <data name="VideoFoldersTitle" xml:space="preserve">
+    <value>Carpetas de la biblioteca</value>
+    <comment>library folders title</comment>
+  </data>
+  <data name="KeyboardShortCutsTitle" xml:space="preserve">
+    <value>Atajos de teclado</value>
+    <comment>shortcuts title</comment>
+  </data>
+  <data name="SettingsKeyboard.Header" xml:space="preserve">
+    <value>Atajos de teclado</value>
+    <comment>keyboard shortcuts</comment>
+  </data>
+  <data name="PlayPause" xml:space="preserve">
+    <value>Jugar / Pausa</value>
+    <comment>play pause label</comment>
+  </data>
+  <data name="MuteUnMute" xml:space="preserve">
+    <value>Mute/UnMute</value>
+    <comment>mute unmute label</comment>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>Pantalla completa</value>
+    <comment>full screen label</comment>
+  </data>
+  <data name="NextTrack" xml:space="preserve">
+    <value>Siguiente pista</value>
+    <comment>next track label</comment>
+  </data>
+  <data name="PreviousTrack" xml:space="preserve">
+    <value>Pista anterior</value>
+    <comment>previous track label</comment>
+  </data>
+  <data name="ToggleLooping" xml:space="preserve">
+    <value>Toggle Looping</value>
+    <comment>Togle loooping label</comment>
+  </data>
+  <data name="ToggleMiniBar" xml:space="preserve">
+    <value>Toggle Mini Seek Bar</value>
+    <comment>toggle mini bar label</comment>
+  </data>
+  <data name="TogglePipMode" xml:space="preserve">
+    <value>Alternar imagen en modo de imagen</value>
+    <comment>pip mode label</comment>
+  </data>
+  <data name="SpaceBar" xml:space="preserve">
+    <value>Barra espaciadora</value>
+    <comment>spacebar text</comment>
+  </data>
+  <data name="M" xml:space="preserve">
+    <value>M</value>
+    <comment>m text</comment>
+  </data>
+  <data name="F/Esc" xml:space="preserve">
+    <value>F / Esc</value>
+    <comment>f/esc text</comment>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Arriba</value>
+    <comment>Up text</comment>
+  </data>
+  <data name="Down" xml:space="preserve">
+    <value>Abajo</value>
+    <comment>Down text</comment>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Flecha derecha</value>
+    <comment>Right text</comment>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Flecha izquierda</value>
+    <comment>Left text</comment>
+  </data>
+  <data name="Right30" xml:space="preserve">
+    <value>Shft + Flecha derecha</value>
+    <comment>Right text</comment>
+  </data>
+  <data name="Left30" xml:space="preserve">
+    <value>Shft + flecha izquierda</value>
+    <comment>Left text</comment>
+  </data>
+  <data name="Right60" xml:space="preserve">
+    <value>Ctrl + Flecha derecha</value>
+    <comment>Right text</comment>
+  </data>
+  <data name="Left60" xml:space="preserve">
+    <value>Ctrl + Flecha izquierda</value>
+    <comment>Left text</comment>
+  </data>
+  <data name="D" xml:space="preserve">
+    <value>D</value>
+    <comment>D text</comment>
+  </data>
+  <data name="A" xml:space="preserve">
+    <value>A</value>
+    <comment>A text</comment>
+  </data>
+  <data name="L" xml:space="preserve">
+    <value>L</value>
+    <comment>L text</comment>
+  </data>
+  <data name="P" xml:space="preserve">
+    <value>P</value>
+    <comment>P text</comment>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>B</value>
+    <comment>B text</comment>
+  </data>
+  <data name="ViewAllButton.Label" xml:space="preserve">
+    <value>Ver todo</value>
+    <comment>view all text</comment>
+  </data>
+  <data name="TrainNextButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Siguiente</value>
+    <comment>next train button label</comment>
+  </data>
+  <data name="TrainPreviousButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Anterior</value>
+    <comment>previous button traun label</comment>
+  </data>
+  <data name="NoHistory" xml:space="preserve">
+    <value>La historia está vacía :( Reproduce algunos videos para crear algo de historia;)</value>
+    <comment>no history text</comment>
+  </data>
+  <data name="NoItems" xml:space="preserve">
+    <value>Esta carpeta está vacía :( Considera agregar carpetas a tu biblioteca de videos</value>
+    <comment>no folders or videos text.</comment>
+  </data>
+  <data name="PlaylistsItemHeader.Content" xml:space="preserve">
+    <value>Playlists &gt;</value>
+    <comment>playlist item header in navigation view.</comment>
+  </data>
+  <data name="AddToPlaylist.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Agregar a la lista de reproducción</value>
+    <comment>add to list tooltip</comment>
+  </data>
+  <data name="DeletePlaylistButton.Label" xml:space="preserve">
+    <value>Eliminar lista de reproducción</value>
+    <comment>delete playlist text</comment>
+  </data>
+  <data name="EmptyPlaylistBlock.Text" xml:space="preserve">
+    <value>Esta lista de reproducción está vacía.</value>
+    <comment>empty playlist block</comment>
+  </data>
+  <data name="AddToBlock.Text" xml:space="preserve">
+    <value>Añadir...</value>
+    <comment>add to text</comment>
+  </data>
+  <data name="CreateNewPlaylistBlock.Text" xml:space="preserve">
+    <value>Crear nueva lista de reproducción</value>
+    <comment>create ne wplyalist text</comment>
+  </data>
+  <data name="NewPlaylistNameBox.PlaceholderText" xml:space="preserve">
+    <value>Playlist</value>
+    <comment>new playlist name textbox placeholder</comment>
+  </data>
+  <data name="PlaylistExistsBlock.Text" xml:space="preserve">
+    <value>Por favor, intente un nombre de lista de reproducción válido, que no existe ya.</value>
+    <comment>playlist exist text</comment>
+  </data>
+  <data name="ConfirmDeletePlaylistText" xml:space="preserve">
+    <value>¿Estás seguro de que deseas eliminar esta lista de reproducción?</value>
+    <comment>confirmation text for deleting playlist</comment>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Por favor confirmar</value>
+    <comment>confirmation dialog title </comment>
+  </data>
+  <data name="FileAccessBlock.Text" xml:space="preserve">
+    <value>¿No puedes ver tus videos? Asegúrese de activar "Acceso a archivos" para esta aplicación en "Configuración de Windows&gt; Privacidad&gt; Sistema de archivos"</value>
+    <comment>file system access guide.</comment>
+  </data>
+  <data name="PlayerPageButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Ir al jugador</value>
+    <comment>go to playr page text</comment>
+  </data>
+  <data name="PlaylistDisabledBlock.Text" xml:space="preserve">
+    <value>Primero reproduzca un video, para usar la función "Agregar a lista de reproducción"</value>
+    <comment>playlist disabled block text</comment>
+  </data>
+  <data name="AllowFileAccessBlock.Text" xml:space="preserve">
+    <value>Permitir acceso a archivos</value>
+    <comment>allow file system access buttom text</comment>
+  </data>
+  <data name="FileAccessWarningText" xml:space="preserve">
+    <value>Parece que es posible que no podamos acceder a algunos de tus videos. Windows ahora abrirá la aplicación Configuración para que pueda permitir el acceso al sistema de archivos a esta aplicación. Tenga en cuenta que cuando cambie esta configuración, la aplicación podría cerrarse y tendrá que volver a ejecutarla. Continuar?</value>
+    <comment>file acess warning</comment>
+  </data>
+  <data name="FileNotFoundBlock.Text" xml:space="preserve">
+    <value>Algunos archivos de video fueron modificados, movidos o eliminados en su dispositivo, por lo que no se puede acceder a ellos.</value>
+    <comment>history file not found block message.</comment>
+  </data>
+  <data name="DefaultAppBlock.Text" xml:space="preserve">
+    <value>Hazme el reproductor de video predeterminado</value>
+    <comment>default app text</comment>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Biblioteca</value>
+    <comment>library header</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Bueno</value>
+    <comment>ok text</comment>
+  </data>
+</root>

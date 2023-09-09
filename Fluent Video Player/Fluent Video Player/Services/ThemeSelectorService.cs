@@ -1,63 +1,65 @@
-﻿using Fluent_Video_Player.Contracts.Services;
+﻿using System;
+using System.Threading.Tasks;
+
 using Fluent_Video_Player.Helpers;
 
-using Microsoft.UI.Xaml;
+using Windows.ApplicationModel.Core;
+using Windows.Storage;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 
-namespace Fluent_Video_Player.Services;
-
-public class ThemeSelectorService : IThemeSelectorService
+namespace Fluent_Video_Player.Services
 {
-    private const string SettingsKey = "AppBackgroundRequestedTheme";
-
-    public ElementTheme Theme { get; set; } = ElementTheme.Default;
-
-    private readonly ILocalSettingsService _localSettingsService;
-
-    public ThemeSelectorService(ILocalSettingsService localSettingsService)
+    public static class ThemeSelectorService
     {
-        _localSettingsService = localSettingsService;
-    }
+        private const string SettingsKey = "AppBackgroundRequestedTheme";
+        public static event EventHandler<EventArgs> ThemeToggled;
+        public static ElementTheme Theme { get; set; } = ElementTheme.Default;
 
-    public async Task InitializeAsync()
-    {
-        Theme = await LoadThemeFromSettingsAsync();
-        await Task.CompletedTask;
-    }
-
-    public async Task SetThemeAsync(ElementTheme theme)
-    {
-        Theme = theme;
-
-        await SetRequestedThemeAsync();
-        await SaveThemeInSettingsAsync(Theme);
-    }
-
-    public async Task SetRequestedThemeAsync()
-    {
-        if (App.MainWindow.Content is FrameworkElement rootElement)
+        public static async Task InitializeAsync()
         {
-            rootElement.RequestedTheme = Theme;
-
-            TitleBarHelper.UpdateTitleBar(Theme);
+            Theme = await LoadThemeFromSettingsAsync();
         }
 
-        await Task.CompletedTask;
-    }
-
-    private async Task<ElementTheme> LoadThemeFromSettingsAsync()
-    {
-        var themeName = await _localSettingsService.ReadSettingAsync<string>(SettingsKey);
-
-        if (Enum.TryParse(themeName, out ElementTheme cacheTheme))
+        public static async Task SetThemeAsync(ElementTheme theme)
         {
+            Theme = theme;
+
+            await SetRequestedThemeAsync();
+            await SaveThemeInSettingsAsync(Theme);
+        }
+
+        public static async Task SetRequestedThemeAsync()
+        {
+            foreach (var view in CoreApplication.Views)
+            {
+                await view.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    if (Window.Current.Content is FrameworkElement frameworkElement)
+                    {
+                        frameworkElement.RequestedTheme = Theme;
+                        ThemeToggled?.Invoke(null, EventArgs.Empty);
+                    }
+                });
+            }
+        }
+
+        private static async Task<ElementTheme> LoadThemeFromSettingsAsync()
+        {
+            ElementTheme cacheTheme = ElementTheme.Default;
+            string themeName = await ApplicationData.Current.LocalSettings.ReadAsync<string>(SettingsKey);
+
+            if (!string.IsNullOrEmpty(themeName))
+            {
+                Enum.TryParse(themeName, out cacheTheme);
+            }
+
             return cacheTheme;
         }
 
-        return ElementTheme.Default;
-    }
-
-    private async Task SaveThemeInSettingsAsync(ElementTheme theme)
-    {
-        await _localSettingsService.SaveSettingAsync(SettingsKey, theme.ToString());
+        private static async Task SaveThemeInSettingsAsync(ElementTheme theme)
+        {
+            await ApplicationData.Current.LocalSettings.SaveAsync(SettingsKey, theme.ToString());
+        }
     }
 }

@@ -1,8 +1,9 @@
-﻿namespace Database;
-
-public class PlaylistFileData
+﻿namespace Fluent_Video_Player.Database
 {
-    public int Id { get; set; }
-    public string Path { get; set; }
-    public string Playlist { get; set; }
+    public class PlaylistFileData
+    {
+        public int Id { get; set; }
+        public string Path { get; set; }
+        public string Playlist { get; set; }
+    }
 }

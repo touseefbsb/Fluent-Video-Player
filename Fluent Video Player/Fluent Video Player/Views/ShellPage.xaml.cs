@@ -1,79 +1,67 @@
-﻿using CommunityToolkit.WinUI;
-using Fluent_Video_Player.Contracts.Services;
-using Fluent_Video_Player.Helpers;
+﻿
 using Fluent_Video_Player.ViewModels;
+using static Fluent_Video_Player.Helpers.MediaHelper;
+using Windows.UI.Xaml.Controls;
+using Fluent_Video_Player.Services;
+using Windows.UI.Xaml.Media.Animation;
+using Fluent_Video_Player.Helpers;
 
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-
-using Windows.System;
-
-namespace Fluent_Video_Player.Views;
-
-public sealed partial class ShellPage : Page
+namespace Fluent_Video_Player.Views
 {
-    public ShellViewModel ViewModel { get; }
-
-    public ShellPage(ShellViewModel viewModel)
+    public sealed partial class ShellPage : Page
     {
-        ViewModel = viewModel;
-        InitializeComponent();
+        public ShellViewModel ViewModel { get; } = new ShellViewModel();
 
-        ViewModel.NavigationService.Frame = NavigationFrame;
-        ViewModel.NavigationViewService.Initialize(NavigationViewControl);
-
-        // A custom title bar is required for full window theme and Mica support.
-        // https://docs.microsoft.com/windows/apps/develop/title-bar?tabs=winui3#full-customization
-        App.MainWindow.ExtendsContentIntoTitleBar = true;
-        App.MainWindow.SetTitleBar(AppTitleBar);
-        App.MainWindow.Activated += MainWindow_Activated;
-        AppTitleBarText.Text = "AppDisplayName".GetLocalized();
-    }
-
-    private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        TitleBarHelper.UpdateTitleBar(RequestedTheme);
-
-        KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
-        KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
-    }
-
-    private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
-    {
-        var resource = args.WindowActivationState == WindowActivationState.Deactivated ? "WindowCaptionForegroundDisabled" : "WindowCaptionForeground";
-
-        AppTitleBarText.Foreground = (SolidColorBrush)App.Current.Resources[resource];
-        App.AppTitlebar = AppTitleBarText as UIElement;
-    }
-
-    private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args) => AppTitleBar.Margin = new Thickness()
-    {
-        Left = sender.CompactPaneLength * (sender.DisplayMode == NavigationViewDisplayMode.Minimal ? 2 : 1),
-        Top = AppTitleBar.Margin.Top,
-        Right = AppTitleBar.Margin.Right,
-        Bottom = AppTitleBar.Margin.Bottom,
-    };
-
-    private static KeyboardAccelerator BuildKeyboardAccelerator(VirtualKey key, VirtualKeyModifiers? modifiers = null)
-    {
-        var keyboardAccelerator = new KeyboardAccelerator() { Key = key };
-
-        if (modifiers.HasValue)
+        public ShellPage()
         {
-            keyboardAccelerator.Modifiers = modifiers.Value;
+            InitializeComponent();
+            DataContext = ViewModel;
+            ViewModel.Initialize(this, shellFrame, winUiNavigationView, KeyboardAccelerators,
+                Minimpe, MiniFluentmtc, MiniPlayerGrid, DisplayModeChangeButton, RatingInAppNotification);
+            
         }
 
-        keyboardAccelerator.Invoked += OnKeyboardAcceleratorInvoked;
+        private void Page_PreviewKeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (DeviceHelper.GetDevice() == DeviceHelper.Device.Desktop && !(e.OriginalSource is TextBox))
+            {
+                if (e.Key == Windows.System.VirtualKey.Up || e.Key == Windows.System.VirtualKey.Down ||
+                    e.Key == Windows.System.VirtualKey.Left || e.Key == Windows.System.VirtualKey.Right ||
+                    e.Key == Windows.System.VirtualKey.Space) { e.Handled = true; }
+            }
+        }
+        private void Fluentmtc_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            //deal with like icon
+            //LikedIconUpdate();
+            //adjust the volume for start.
 
-        return keyboardAccelerator;
-    }
+            MiniFluentmtc.VolumeIndicator.Value = MyMediaPlayer.MP.Volume;
+            MiniFluentmtc.LoopButton.IsChecked = MyMediaPlayer.CurrentPlaybackList.AutoRepeatEnabled;
+            if (MyMediaPlayer.CurrentPlaybackList.Items.Count > 0 && MyMediaPlayer.CurrentPlaybackList.CurrentItem != default(object))
+            {
+                MiniFluentmtc.CurrentTextBlock.Text = MyMediaPlayer?.CurrentPlaybackList?.CurrentItem?.GetDisplayProperties()?.VideoProperties?.Title;
+                ToolTipService.SetToolTip(MiniFluentmtc.CurrentTextBlock, MiniFluentmtc.CurrentTextBlock.Text);
+            }
+            //Fluentmtc.ExtraControls.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            MiniFluentmtc.MyCommandBar?.PrimaryCommands.Remove(MiniFluentmtc.PipButton);
+            MiniFluentmtc.OpenButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            MiniFluentmtc.AddToPlaylistButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            MiniFluentmtc.CloseButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            MiniFluentmtc.GoToPlayerPageButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            MiniFluentmtc.VolumeInternalBorder.Height = 42.0;
+            MiniFluentmtc.VolumeInternalBorder.Width = 50.0;
+            MiniFluentmtc.VolumeIcon.Width = 20.0;
+            MiniFluentmtc.VolumeIcon.Height = 20.0;
+            MiniFluentmtc.VolumeIndicator.Height = 4.0;
+            MiniFluentmtc.VolumeIndicatorBorder.BlurRadius = 10.0;
+        }
 
-    private static void OnKeyboardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-    {
-        var navigationService = App.GetService<INavigationService>();
-
-        args.Handled = navigationService.GoBack();
+        private void Minimpe_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("MiniConnectedAnimation", MiniPlayerGrid);
+            NavigationService.Navigate<PlayerPage>(infoOverride: new SuppressNavigationTransitionInfo());
+        }
+        
     }
 }

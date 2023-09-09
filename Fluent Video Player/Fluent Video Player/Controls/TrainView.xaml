@@ -1,0 +1,95 @@
+﻿<UserControl
+    x:Class="Fluent_Video_Player.Controls.TrainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:datatemplates="using:Fluent_Video_Player.DataTemplates"
+    xmlns:data="using:Fluent_Video_Player.Models"
+    xmlns:iconPacks="using:MahApps.Metro.IconPacks"
+    xmlns:helper="using:Fluent_Video_Player.Helpers"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    xmlns:comp="using:CompositionProToolkit.Controls"
+    xmlns:toolkitConverters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <helper:NoVisibilityConverter x:Key="NoVisibilityConverter1"/>
+        <helper:TrainButtonVisibilityConverter x:Key="TrainButtonVisibilityConverter1"/>
+        <toolkitConverters:BoolToVisibilityConverter x:Key="BooleanToVisibilityConverter2"/>
+    </UserControl.Resources>
+    <controls:DropShadowPanel Margin="12" extensions:VisualExtensions.Opacity="1"
+                              Style="{StaticResource GridShadow}">
+        <Grid Background="{ThemeResource SystemControlBackgroundAltMediumHighBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Padding="20,12,12,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <iconPacks:PackIconMaterialDesign Kind="{x:Bind MyKind}" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                                           VerticalAlignment="Center" Width="28" Height="28" Margin="4,0,12,0"/>
+                <TextBlock  Style="{StaticResource TitleTextBlockStyle}"
+                                    FontWeight="SemiBold" FontSize="20"
+                                    TextTrimming="CharacterEllipsis"
+                                    VerticalAlignment="Center" Grid.Column="1"
+                                    x:Name="TitleBlock" />
+                <comp:FluidProgressRing VerticalAlignment="Center"
+                             Grid.Column="2" Width="28" Height="28" NodeColor="{ThemeResource SystemAccentColor}"
+                             Visibility="{x:Bind IsLoading, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter2}}"
+                             Margin="{StaticResource MediumLeftRightMargin}"/>
+                <CommandBar DefaultLabelPosition="Right" Grid.Column="3" Background="Transparent"
+                            HorizontalAlignment="Right" >
+                    <AppBarButton x:Uid="ViewAllButton" Command="{x:Bind ViewAllCommand}"
+                                  Foreground="{ThemeResource SystemControlBackgroundBaseMediumHighBrush}">
+                        <AppBarButton.Content>
+                            <iconPacks:PackIconMaterialDesign Kind="Apps"/>
+                        </AppBarButton.Content>
+                    </AppBarButton>
+                </CommandBar>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Button  Command="{x:Bind ScrollCommand}" CornerRadius="20" x:Uid="TrainPreviousButton"
+                     Visibility="{x:Bind MyItemsCount,Mode=OneWay,Converter={StaticResource TrainButtonVisibilityConverter1}}"
+                     CommandParameter="Left" Width="40" Height="40" Style="{ThemeResource AccentTranslucentButtonStyle}"
+                     VerticalAlignment="Center" Canvas.ZIndex="5" HorizontalAlignment="Left">
+                    <iconPacks:PackIconMaterialDesign Kind="KeyboardArrowLeft" Width="20" Height="20" />
+                </Button>
+                <controls:AdaptiveGridView  TabFocusNavigation="Local" x:Name="MyTrainView"
+                                        Loaded="MyAdaptiveView_Loaded"
+                                        ItemsSource="{x:Bind MyItemsSource,Mode=OneWay}"
+                                        Grid.Row="1" ItemClickCommand="{x:Bind ItemClickCommand}"
+                                        OneRowModeEnabled="True" IsItemClickEnabled="True"                                     
+                                        DesiredWidth="{StaticResource GridDesiredWidth}"
+                                        ItemHeight="{StaticResource GridItemHeight}"
+                                        SelectionMode="None" StretchContentForSingleRow="False"
+                                        animations:ReorderGridAnimation.Duration="250">
+                    <controls:AdaptiveGridView.ItemTemplate>
+                        <DataTemplate x:DataType="data:Video">
+                            <datatemplates:VideoTemplate MyVideo="{x:Bind THIS}" IgnoreCheckView="True"/>
+                        </DataTemplate>
+                    </controls:AdaptiveGridView.ItemTemplate>
+                </controls:AdaptiveGridView>
+                <TextBlock x:Name="NoItemsBlock" Style="{StaticResource NoItemsBlockStyle}"
+                                   Visibility="{x:Bind MyItemsCount ,Mode=OneWay,
+                                   Converter={StaticResource NoVisibilityConverter1}}"
+                                   FontSize="{StaticResource MediumFontSize}"/>
+                <Button  Command="{x:Bind ScrollCommand}" CornerRadius="20" x:Uid="TrainNextButton"
+                     Visibility="{x:Bind MyItemsCount,Mode=OneWay,Converter={StaticResource TrainButtonVisibilityConverter1}}"
+                     CommandParameter="Right" Width="40" Height="40" Style="{ThemeResource AccentTranslucentButtonStyle}"
+                     VerticalAlignment="Center" Canvas.ZIndex="5" HorizontalAlignment="Right">
+                    <iconPacks:PackIconMaterialDesign Kind="KeyboardArrowRight" Width="20" Height="20" />
+                </Button>
+            </Grid>
+
+        </Grid>
+    </controls:DropShadowPanel>
+</UserControl>

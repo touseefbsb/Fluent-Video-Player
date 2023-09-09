@@ -2,11 +2,129 @@
     x:Class="Fluent_Video_Player.Views.LibraryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:data="using:Fluent_Video_Player.Models"
+    xmlns:dataTemplates="using:Fluent_Video_Player.DataTemplates"
+    xmlns:datatemplateselectors="using:Fluent_Video_Player.DataTemplateSelectors"
+    xmlns:helper="using:Fluent_Video_Player.Helpers"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:iconPacks="using:MahApps.Metro.IconPacks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls="using:Fluent_Video_Player.Controls"
+    Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <helper:NoVisibilityConverter x:Key="NoVisibilityConverter1" />
+    </Page.Resources>
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
     <Grid x:Name="ContentArea">
-        
+        <Grid.Resources>
+            <DataTemplate x:Key="FolderDataTemplate" x:DataType="data:Folder">
+                <dataTemplates:FolderTemplate MyFolder="{x:Bind THIS}" />
+            </DataTemplate>
+            <DataTemplate x:Key="VideoDataTemplate" x:DataType="data:Video">
+                <dataTemplates:VideoTemplate MyVideo="{x:Bind THIS}" />
+            </DataTemplate>
+            <datatemplateselectors:VideoFolderDataTemplateSelector
+                x:Key="VideoFolderDataTemplateSelector1"
+                FolderTemplate="{StaticResource FolderDataTemplate}"
+                VideoTemplate="{StaticResource VideoDataTemplate}" />
+        </Grid.Resources>
+        <Grid>
+            <userControls:FluentGridView
+                x:Name="MyFluentGridView"
+                IsLoading="{x:Bind ViewModel.LibraryLoading, Mode=OneWay}"
+                ItemsCount="{x:Bind ViewModel.SourcePrivate.Count, Mode=OneWay}"
+                MyDesiredWidth="{StaticResource GridDesiredWidth}"
+                MyItemHeight="{StaticResource GridItemHeight}"
+                MyItemTemplateSelector="{StaticResource VideoFolderDataTemplateSelector1}"
+                MyItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+                MyTitle="{x:Bind ViewModel.MainFolder.DisplayName, Mode=OneWay}">
+                <userControls:FluentGridView.MyCustomHeaderIcon>
+                    <iconPacks:PackIconMaterialDesign
+                        x:Name="FolderIconTitle"
+                        Width="28"
+                        Height="28"
+                        Margin="10,0,4,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                        Kind="Folder" />
+                </userControls:FluentGridView.MyCustomHeaderIcon>
+                <userControls:FluentGridView.MyCustomHeader>
+                    <Grid Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <CommandBar
+                            x:Name="MainCommandBar"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right">
+                            <AppBarButton
+                                x:Uid="AddFolders"
+                                Command="{x:Bind ViewModel.AddFoldersCommand}"
+                                Foreground="{ThemeResource SystemControlBackgroundBaseMediumHighBrush}">
+                                <AppBarButton.Content>
+                                    <iconPacks:PackIconMaterialDesign Kind="LibraryAdd" />
+                                </AppBarButton.Content>
+                            </AppBarButton>
+                        </CommandBar>
+                        <ListView
+                            x:Name="ShowFoldersListView"
+                            Grid.Column="1"
+                            Margin="40,0"
+                            ItemContainerStyle="{StaticResource ListViewItemCompactStyle}"
+                            ItemsSource="{x:Bind ViewModel.FolderFilterItems}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                            ScrollViewer.HorizontalScrollMode="Disabled"
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                            ScrollViewer.VerticalScrollMode="Disabled"
+                            SelectionChanged="ListView_SelectionChanged"
+                            TabFocusNavigation="Local">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ItemsStackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="data:FolderFilterItem">
+                                    <iconPacks:PackIconMaterialDesign
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Kind="{x:Bind MyKind}"
+                                        ToolTipService.ToolTip="{x:Bind MyTooltip}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </userControls:FluentGridView.MyCustomHeader>
+
+
+            </userControls:FluentGridView>
+            <TextBlock
+                x:Uid="NoItemsBlock"
+                Style="{StaticResource NoItemsBlockStyle}"
+                Visibility="{x:Bind ViewModel.SourcePrivate.Count, Mode=OneWay, Converter={StaticResource NoVisibilityConverter1}}" />
+        </Grid>
+        <controls:InAppNotification x:Name="FileNotFoundInAppNotification" Style="{StaticResource FileNotFoundInAppNotificationStyle}">
+            <controls:InAppNotification.Content>
+                <Grid Padding="8">
+                    <TextBlock
+                        x:Uid="FileNotFoundBlock"
+                        Padding="8"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                </Grid>
+            </controls:InAppNotification.Content>
+        </controls:InAppNotification>
     </Grid>
 </Page>

@@ -1,107 +1,81 @@
-﻿using Database;
-using Fluent_Video_Player.Activation;
-using Fluent_Video_Player.Contracts.Services;
-using Fluent_Video_Player.Core.Contracts.Services;
-using Fluent_Video_Player.Core.Services;
-using Fluent_Video_Player.Models;
+﻿using System;
 using Fluent_Video_Player.Services;
-using Fluent_Video_Player.ViewModels;
-using Fluent_Video_Player.Views;
+using Fluent_Video_Player.Database;
+using Microsoft.EntityFrameworkCore;
 
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.UI.Xaml;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
-namespace Fluent_Video_Player;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
+using Fluent_Video_Player.Helpers;
+using Windows.UI.Xaml.Media.Animation;
+using System.Collections.Generic;
+using Microsoft.Toolkit.Uwp.Helpers;
+using System.Threading.Tasks;
 
-// To learn more about WinUI 3, see https://docs.microsoft.com/windows/apps/winui/winui3/.
-public partial class App : Application
+namespace Fluent_Video_Player
 {
-    // The .NET Generic Host provides dependency injection, configuration, logging, and other services.
-    // https://docs.microsoft.com/dotnet/core/extensions/generic-host
-    // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection
-    // https://docs.microsoft.com/dotnet/core/extensions/configuration
-    // https://docs.microsoft.com/dotnet/core/extensions/logging
-    public IHost Host { get; }
-
-    public static T GetService<T>() where T : class
+    public sealed partial class App : Application
     {
-        if ((Current as App)!.Host.Services.GetService(typeof(T)) is not T service)
+        private Lazy<ActivationService> _activationService;
+        private ActivationService ActivationService => _activationService.Value;
+
+        public App()
         {
-            throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs.");
+            InitializeComponent();
+            EnteredBackground += App_EnteredBackground;
+            Current.UnhandledException += Current_UnhandledException;
+            using (var db = new DatabaseContext()) { db.Database.Migrate(); }
+            ConnectedAnimationService.GetForCurrentView().DefaultDuration = Constants.ConnectedAnimationDuration;
+            AppCenter.Start(Constants.AppCenterKey, typeof(Analytics), typeof(Crashes));
+
+            // Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.
+            _activationService = new Lazy<ActivationService>(CreateActivationService);
         }
-        return service;
-    }
 
-    public static WindowEx MainWindow { get; } = new MainWindow();
-
-    public static UIElement? AppTitlebar { get; set; }
-
-    public App()
-    {
-        InitializeComponent();
-
-        Host = Microsoft.Extensions.Hosting.Host.
-        CreateDefaultBuilder().
-        UseContentRoot(AppContext.BaseDirectory).
-        ConfigureServices((context, services) =>
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            // Default Activation Handler
-            services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
+            if (!args.PrelaunchActivated)
+            {
+                SystemInformation.TrackAppUse(args);
+                await ActivationService.ActivateAsync(args);
+            }
+        }
+        protected override async void OnActivated(IActivatedEventArgs args) => await ActivationService.ActivateAsync(args);
+        protected override async void OnFileActivated(FileActivatedEventArgs args) => await ActivationService.ActivateAsync(args);
 
-            // Other Activation Handlers
+        private ActivationService CreateActivationService() => new ActivationService(this, typeof(Views.HomePage), new Lazy<UIElement>(CreateShell));
 
-            // Services
-            services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
-            services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
-            services.AddTransient<INavigationViewService, NavigationViewService>();
+        private UIElement CreateShell() => new Views.ShellPage();
 
-            services.AddSingleton<IActivationService, ActivationService>();
-            services.AddSingleton<IPageService, PageService>();
-            services.AddSingleton<INavigationService, NavigationService>();
-
-            // Core Services
-            services.AddSingleton<IFileService, FileService>();
-
-            // Views and ViewModels
-            services.AddTransient<SettingsViewModel>();
-            services.AddTransient<SettingsPage>();
-            services.AddTransient<PlaylistViewModel>();
-            services.AddTransient<PlaylistPage>();
-            services.AddTransient<PlayerViewModel>();
-            services.AddTransient<PlayerPage>();
-            services.AddTransient<HistoryViewModel>();
-            services.AddTransient<HistoryPage>();
-            services.AddTransient<LibraryViewModel>();
-            services.AddTransient<LibraryPage>();
-            services.AddTransient<HomeViewModel>();
-            services.AddTransient<HomePage>();
-            services.AddTransient<ShellPage>();
-            services.AddTransient<ShellViewModel>();
-
-            //Services I made
-            services.AddSingleton<IStorageFileService, StorageFileService>();
-            services.AddSingleton<IStoreService, StoreService>();
-            services.AddSingleton<IDbService, DbService>();
-
-            // Configuration
-            services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
-        }).
-        Build();
-
-        UnhandledException += App_UnhandledException;
-    }
-
-    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
-    {
-        // TODO: Log and handle exceptions as appropriate.
-        // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
-    }
-
-    protected async override void OnLaunched(LaunchActivatedEventArgs args)
-    {
-        base.OnLaunched(args);
-
-        await GetService<IActivationService>().ActivateAsync(args);
+        private async void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
+        {
+            var deferral = e.GetDeferral();
+            try
+            {
+                Task delay = Task.Delay(2000);
+                await Task.WhenAny(delay, Helpers.Singleton<SuspendAndResumeService>.Instance.SaveStateAsync());
+            }
+            catch
+            { }
+            finally
+            {
+                deferral.Complete();
+            }
+            //await Helpers.Singleton<SuspendAndResumeService>.Instance.SaveStateAsync();
+        }
+        private void Current_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            var exceptionProps = new Dictionary<string, string>
+            {
+                { "ExceptionMessage", e.Message },
+                { "StackTrace", e.Exception.StackTrace }
+            };
+            Analytics.TrackEvent("UnhandledExceptionOccured", exceptionProps);
+            e.Handled = true;
+        }
     }
 }

@@ -3,10 +3,38 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls="using:Fluent_Video_Player.Controls"
+    Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid>
+        <Grid x:Name="ContentArea">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <userControls:TrainView
+                IsLoading="{x:Bind ViewModel.LibraryLoading, Mode=OneWay}"
+                MyItemsCount="{x:Bind ViewModel.LibrarySource.Count, Mode=OneWay}"
+                MyItemsSource="{x:Bind ViewModel.LibrarySource}"
+                MyKind="VideoLibrary"
+                MyTitle="Library" />
+            <userControls:TrainView
+                Grid.Row="1"
+                IsLoading="{x:Bind ViewModel.HistoryLoading, Mode=OneWay}"
+                MyItemsCount="{x:Bind ViewModel.HistorySourcePrivate.Count, Mode=OneWay}"
+                MyItemsSource="{x:Bind ViewModel.HistorySourcePrivate}"
+                MyKind="History"
+                MyTitle="History" />
 
-    <Grid x:Name="ContentArea">
-        
+        </Grid>
     </Grid>
 </Page>
